@@ -1,0 +1,337 @@
+{
+  "actionType": "select",
+  "market": "DFW|SAN",
+  "fromDate": "2020-03-05",
+  "toDate": "2021-03-04",
+  "comparisonFromDate": "2019-03-04",
+  "comparisonToDate": "2020-03-03",
+  "cabinCode": "C|F",
+  "pcDates": [
+    {
+      "cabinCode": "C",
+      "pcDate": "2021-02-11",
+      "poolCode": "H3",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-12-28",
+      "poolCode": "H2",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-12-31",
+      "poolCode": "HL",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-12-26",
+      "poolCode": "H2",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-05-26",
+      "poolCode": "H3",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2021-01-01",
+      "poolCode": "HL",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-11-26",
+      "poolCode": "HL",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-11-27",
+      "poolCode": "H1",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-11-28",
+      "poolCode": "H3",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-11-29",
+      "poolCode": "H1",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-07-01",
+      "poolCode": "H2",
+      "dataSource": "N"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-04-03",
+      "poolCode": "H3",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-09-04",
+      "poolCode": "H3",
+      "dataSource": "Y"
+    }
+  ],
+  "comparisonPcDates": [
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-05-17",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-10-31",
+      "poolCode": "HX",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-05-24",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-05-26",
+      "poolCode": "HL",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-05-27",
+      "poolCode": "HX",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-05-23",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-10-13",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-10-14",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-10-11",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-02-13",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-02-23",
+      "poolCode": "H3",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-05-28",
+      "poolCode": "HX",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-09-02",
+      "poolCode": "HL",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-09-05",
+      "poolCode": "HL",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-01-21",
+      "poolCode": "H3",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-06-28",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-06-29",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-01-02",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2020-01-03",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-06-27",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-11-25",
+      "poolCode": "HX",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-11-27",
+      "poolCode": "HL",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-11-28",
+      "poolCode": "HL",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-11-29",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-11-30",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-06-03",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-20",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-07-08",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-07-07",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-28",
+      "poolCode": "H2",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-29",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-25",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-26",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-27",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-01",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-02",
+      "poolCode": "H1",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-13",
+      "poolCode": "HX",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-12-14",
+      "poolCode": "H3",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-04-21",
+      "poolCode": "HL",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-04-23",
+      "poolCode": "HX",
+      "dataSource": "F"
+    },
+    {
+      "cabinCode": "C",
+      "pcDate": "2019-04-27",
+      "poolCode": "HX",
+      "dataSource": "F"
+    }
+  ]
+}

@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   clickOnTab(value) {
+    console.log('setting page title');
     this.pageTitle.setTitle(this.titlePreFix + value);
   }
 }

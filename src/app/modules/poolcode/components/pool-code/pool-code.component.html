@@ -1,0 +1,93 @@
+<div class="tab-content modules-section">
+  <!--<section class="tab-pane fade show active in" id="poolCode" role="tabpanel" aria-labelledby="poolCode-tab">-->
+<!--  <div class="d-lg-none" [ngClass]="{'sideBar-new': _opened}" *ngIf="_opened">-->
+<!--    <ng-template [ngTemplateOutlet]="sideBarTemplate"></ng-template>-->
+<!--  </div>-->
+<!--  <div *ngIf="selectedMarket" class="row">-->
+<!--    <div id="forecast-left" class="d-none d-lg-block" *ngIf='selectedMarket'>-->
+<!--      <ng-template [ngTemplateOutlet]="sideBarTemplate"></ng-template>-->
+<!--    </div>-->
+<!--    <div class="toggle-button d-lg-none" *ngIf='selectedMarket'>-->
+<!--      <button (click)="_toggleSidebar()" class="padding-0 cursor-pointer"><i class="material-icons">-->
+<!--        more_vert-->
+<!--      </i></button>-->
+<!--    </div>-->
+<!--    <ng-template [ngTemplateOutlet]="mainPoolCode"></ng-template>-->
+<!--  </div>-->
+  <ng-template [ngTemplateOutlet]="mainPoolCode"></ng-template>
+  </div>
+
+<ng-template #mainPoolCode>
+  <div id="poolCode-right">
+    <div class="box pool-code-content">
+      <h3 class="heading" aria-expanded="true" data-target="#poolMainContent">Pool Codes</h3>
+      <div style="overflow-x: auto;overflow-y: hidden;width:auto;background-color: white">
+        <div class="box-content show collapse" id="poolMainContent" >
+          <div class="row" style="width: max-content;background-color: white">
+            <div class="col" *ngFor="let cabin of this.selectedCabinsData" style="padding: 5px;">
+              <div class="box" style="width: fit-content">
+                <h3 class="heading"
+                    aria-expanded="true"
+                    [attr.data-target]="'#'+cabin.cabinName.concat('div')">{{cabin.cabinName}}</h3>
+                <div [attr.id]="cabin.cabinName.concat('div')" class="box-content collapse show">
+                  <div class="container">
+                    <div  class="row">
+                      <div *ngFor="let labels of cabin.comparisonLabels"
+                           class="col" style="padding-right: 20px">
+                        <div class="col" id="grid-range-label-grid-container">
+                          <div class="row" id="grid-range-label-container">
+                            <input type="text" [readonly]="isReadOnlyField" [value]="labels" class="comparison-info-label"/>
+                          </div>
+                          <div class="row" id="grid-container">
+                            <div *ngFor="let dayname of dayNames"  class="pool-week-days">
+                              <div class="col-3">
+                                <input type="text" [readonly]="isReadOnlyField"
+                                       class="pool-week-days" step="any"
+                                       [value]='dayname'>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div *ngFor="let comparisonWeek of cabin.comparisonWeeks; let j = index;" class="col">
+                        <div *ngFor="let week of comparisonWeek" class="row">
+                          <div class="row" >
+                            <div *ngFor="let day of week.days" class="pool-datesdiv">
+                              <input type="text" [readonly]="isReadOnlyField"
+                                     [value]='day.startDate'
+                                     (click)="setClass($event,j, day)" [className]="day.className">
+                              <!--															<app-grid-element [cabinCode]="day.cabinCode" [fullDate]="day.fulldate" [poolCode]=""></app-grid-element>-->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div id="poolCode-content"
+           class="box-content collapse show">
+        <div class="poolCode-selection">
+          <div class="row">
+            <div class="col-4 market" *ngIf="!selectedMarket">
+<!--              <app-market-dropdown [setDropdown]="selectedMarket"-->
+<!--                                   (selelctedMarket)="selectMarket($event)">-->
+<!--              </app-market-dropdown>-->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

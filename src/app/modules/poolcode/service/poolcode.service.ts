@@ -1,9 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PoolcodeService {
+  poolCodeURL = 'assets/data/poolCode.json';
+  constructor(private http: HttpClient) {
 
-  constructor() { }
+  }
+
+  getPoolCodes() {
+    return this.http.get(this.poolCodeURL);
+  }
 }
