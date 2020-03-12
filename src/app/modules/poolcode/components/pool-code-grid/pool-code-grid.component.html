@@ -1,0 +1,12 @@
+<div class="box pool-code-content">
+    <div class="row">
+        <div class="col" *ngFor="let cabin of cabins">
+            <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolCodeGrid">
+                {{cabin.cabinName}}
+            </h3>
+            <div class="collapse show" id="poolCodeGrid">
+                Grid blocks
+            </div>
+        </div>
+    </div>
+  </div>

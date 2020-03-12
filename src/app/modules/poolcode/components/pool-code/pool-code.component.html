@@ -5,14 +5,14 @@
 <ng-template #mainPoolCode>
   <div id="poolCode-right">
     <div class="box pool-code-content">
-      <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolMainContent" aria-controls="poolMainContent">
+      <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolMainContent">
         Pool Codes
       </h3>
       <div style="overflow-x: auto;overflow-y: hidden;width:auto;background-color: white">
         <div class="row">
           <div class="col">
             <div class="collapse show" id="poolMainContent">
-              Hello
+              <pool-code-grid [cabins]="selectedCabinsData"></pool-code-grid>
             </div>
           </div>
         </div>
