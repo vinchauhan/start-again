@@ -10,8 +10,8 @@ import {Title} from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
   titlePreFix = 'Helios - ';
-  firstName = 'Google';
-  lastName = 'Doodle'
+  firstName = 'Vineet';
+  lastName = 'Chauhan'
 
   constructor(private pageTitle: Title) {
   }

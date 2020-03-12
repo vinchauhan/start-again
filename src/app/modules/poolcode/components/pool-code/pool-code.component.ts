@@ -9,6 +9,16 @@ import {Observable} from 'rxjs';
 })
 export class PoolCodeComponent implements OnInit {
   poolCodes$: Observable<any>;
+  selectedCabinsData = [
+    {
+      cabinType: 'Y',
+      cabinName: 'Economy'
+    },
+    {
+      cabinType: 'B',
+      cabinName: 'Business'
+    }
+  ]
   constructor(private poolcodeService: PoolcodeService) { }
 
   ngOnInit(): void {
@@ -17,5 +27,9 @@ export class PoolCodeComponent implements OnInit {
   public loadPoolCodes() {
     console.log('loading poolCodes.....');
     this.poolCodes$ = this.poolcodeService.getPoolCodes();
+  }
+
+  setClass(event,j, day) {
+    console.log(event, j, day);
   }
 }

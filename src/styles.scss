@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.box h3 {
+	background-color: #E9EDF2;
+	color: #1976D2;
+	font-size: 0.8em;
+	font-weight: normal;
+	margin: 0 0 5px;
+	padding: 0 10px;
+	text-align: left;
+    line-height: 1.8;
+    .heading {
+        border-radius: 3px 3px 0 0;
+        margin: 0;
+        overflow: hidden;
+        position: relative
+    }
+    
+}
