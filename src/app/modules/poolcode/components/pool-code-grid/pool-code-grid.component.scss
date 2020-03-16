@@ -2,3 +2,16 @@
     background: lightgray;
     border: solid 1px;
 }
+
+.pc-dates {
+    border: solid 0.5px;
+}
+.month-range{
+    padding: 2px, 2px;
+    margin-bottom: 5px;
+}
+.month-range span{
+    display: table;
+    margin: 0 auto;
+    color: lightslategray;
+}

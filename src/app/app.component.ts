@@ -8,10 +8,11 @@ import {Title} from '@angular/platform-browser';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
   titlePreFix = 'Helios - ';
   firstName = 'Vineet';
-  lastName = 'Chauhan'
+  lastName = 'Chauhan';
 
   constructor(private pageTitle: Title) {
   }
