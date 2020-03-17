@@ -10,33 +10,15 @@
                         <div class="col"><span>March 2020 to March 2021</span></div>
                     </div>
                     <div class="row">
-                        <div class="col pc-days">MON</div>
-                        <div class="col pc-days">TUE</div>
-                        <div class="col pc-days">WED</div>
-                        <div class="col pc-days">THU</div>
-                        <div class="col pc-days">FRI</div>
-                        <div class="col pc-days">SAT</div>
-                        <div class="col pc-days">SUN</div>
+                        <div class="col pc-days" *ngFor="let day of daysHeader">{{ day }}</div>
                     </div>
-                    <div class="row">
-                        <div class="col pc-dates">03/21</div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                    </div> 
-                    <div class="row">
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                        <div class="col pc-dates"></div>
-                    </div>  
-                </div>
+                    <ng-container *ngFor="let pcDate of pcDates; let i = index;">
+                        <div class="row" *ngFor="let week of weeks">
+                            <div class="col pc-dates">{{ pcDate.pcDate | dateFormater }}</div>
+                        </div>
+                    </ng-container>
+                      
+                </div>    
             </div>
         </div>
     </div>

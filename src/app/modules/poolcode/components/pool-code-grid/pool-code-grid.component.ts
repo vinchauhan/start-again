@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
+import { PcDate } from '../../model/pcDate';
 
 @Component({
   selector: 'pool-code-grid',
@@ -13,11 +14,17 @@ export class PoolCodeGridComponent implements OnInit {
   public cabins;
   @Input()
   public poolCodes;
+  @Input()
+  public pcDates: PcDate[];
+  @Input()
+  public weeks;
   public weekDays;
   public pcStartDate;
   public pcEndDate;
-
-  constructor() { }
+  public daysHeader = [];
+  constructor() {
+    this.daysHeader = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+   }
 
   ngOnInit(): void {
     console.log('cabins passed to pool-code-grid' , this.cabins);
