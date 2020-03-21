@@ -9,13 +9,13 @@
         Pool Codes
       </h3>
       <div style="overflow-x: auto;overflow-y: hidden;width:auto;background-color: white">
-        <div class="row">
-          <div class="col">
-            <div class="collapse show" id="poolMainContent">
-              <pool-code-grid [cabins]="selectedCabinsData" [poolCodes]="poolCodes$" [pcDates]="pcDates" [weeks]="weeks"></pool-code-grid>
+          <div class="row">
+            <div class="col">
+              <div class="box collapse show" id="poolMainContent">
+                <pool-code-grid [cabins]="selectedCabinsData" [poolCodes]="poolCodes$" [pcDateGridData]="pcDateGridData" [startDateDow]="startDateDow"></pool-code-grid>
+              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

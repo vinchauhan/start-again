@@ -4,6 +4,7 @@ import { PoolCodeComponent } from './components/pool-code/pool-code.component';
 import {PoolCodeRoutingModule} from './poolcode-routing.module';
 import { PoolCodeGridComponent } from './components/pool-code-grid/pool-code-grid.component';
 import { DateFormatter } from './pipes/date-formater.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -11,11 +12,12 @@ import { DateFormatter } from './pipes/date-formater.pipe';
   declarations: [
     PoolCodeComponent,
     PoolCodeGridComponent,
-    DateFormatter
+    DateFormatter,
   ],
   imports: [
     CommonModule,
-    PoolCodeRoutingModule
+    PoolCodeRoutingModule,
+    NgbModule
   ]
 })
 export class PoolcodeModule { }
