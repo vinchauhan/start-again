@@ -20,6 +20,7 @@ export class PoolCodeComponent implements OnInit {
   comparePcDates$: Observable<PcDate[]>;
   poolCodes;
   startDateDow;
+  loading = true;
   startDate =  '2020-06-06';
   endDate = '2021-04-11';
   pcDates: PcDate[] = [];
@@ -65,6 +66,7 @@ export class PoolCodeComponent implements OnInit {
 
     // b. Then modify the default pcDates array created to assign the onces received from backend.
     this.pcDates$.subscribe(res => {
+      this.loading = false;
       res.forEach(pcDate => {
       _.assign(pcDates, pcDates.map(el => el.pcDate === pcDate.pcDate ? pcDate : el ));
       });
@@ -103,7 +105,7 @@ export class PoolCodeComponent implements OnInit {
     });
   }
 
-  setClass(event,j, day) {
+  setClass(event, j, day) {
     console.log(event, j, day);
   }
 }
