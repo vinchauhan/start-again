@@ -1,6 +1,6 @@
-    <div class="container">
+    <div class="container-fluid">
         <div class="row" style="width: max-content; background-color: white">
-            <div class="col" *ngFor="let cabin of cabins"  style="padding: 5px; width: 500px">
+            <div class="col" *ngFor="let cabin of cabins"  style="padding: 5px; width: 650px">
                 <div class="box">
                     <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolCodeGrid">
                         {{cabin.cabinName}}
@@ -8,45 +8,50 @@
                 </div>
                 <div class="box-content collapse show" id="poolCodeGrid">
                     <div class="container">
-                        <div class="row">
-                            <div class="col" style="padding:5px; width: 100px">
-                                <div class="box" style="width: fit-content">
+                        <div class="row" style="width:max-content; background-color: white">
+                            <div class="col-auto">
+                                <div class="box" style="margin-left: 10px; margin-right: 25px">
+                                  <div class="row month-range">
+                                    <span>March 2020 to March 2021</span>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
+                                  </div>
+                                  <div class="row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
+
+                                    <ng-container *ngIf="i === 0">
+                                      <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
+                                    </ng-container>
+                                    <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
+                                      <span [ngbTooltip]="pcDate | json">{{ pcDate.pcDate | dateFormater }}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <div class="box">
                                     <div class="row month-range">
-                                        <span>March 2020 to March 2021</span>
+                                        <span>March 2019 to March 2020</span>
                                     </div>
                                     <div class="row">
                                         <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
                                     </div>
                                     <div class="row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
                                     <!-- padding div to shift the cells based on dow -->
-                                    <ng-container *ngIf="i === 0">
-                                        <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
-                                    </ng-container>
-                                    <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                        <span [ngbTooltip]="pcDate | json">{{ pcDate.pcDate | dateFormater }}</span>
+                                        <ng-container *ngIf="i === 0">
+                                            <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
+                                        </ng-container>
+                                        <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
+                                            <span [ngbTooltip]="pcDate | json">{{ pcDate.pcDate | dateFormater }}</span>
+                                        </div>
                                     </div>
-                                </div>                      
+                                </div>
                             </div>
-
-                            <div class="col">
-                            <div class="row month-range">
-                                <span>March 2019 to March 2020</span>
-                            </div>
-                            <div class="row">
-                                <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
-                            </div>
-                            <div class="row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
-                            <!-- padding div to shift the cells based on dow -->
-                            <ng-container *ngIf="i === 0">
-                                <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
-                            </ng-container>
-                            <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                <span [ngbTooltip]="pcDate | json">{{ pcDate.pcDate | dateFormater }}</span>
-                            </div>   
-                        </div>
-                        
+                      </div>
                     </div>
-                </div>    
+                </div>
             </div>
         </div>
     </div>
+

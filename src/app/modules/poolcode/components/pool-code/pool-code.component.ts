@@ -20,8 +20,8 @@ export class PoolCodeComponent implements OnInit {
   comparePcDates$: Observable<PcDate[]>;
   poolCodes;
   startDateDow;
-  startDate =  '2020-03-05';
-  endDate = '2021-03-04';
+  startDate =  '2020-06-06';
+  endDate = '2021-04-11';
   pcDates: PcDate[] = [];
   pcDateGridData = [];
   weeks;

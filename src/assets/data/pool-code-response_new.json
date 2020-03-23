@@ -1,0 +1,64 @@
+{
+  "actionType": "select",
+  "market": "DFW|SAN",
+  "fromDate": "2020-03-05",
+  "toDate": "2021-03-04",
+  "comparisonFromDate": "2019-03-04",
+  "comparisonToDate": "2020-03-03",
+  "cabinCodes": [
+    {
+      "cabinCode": "C",
+      "pcDates": [
+        {
+          "pcDate": "2021-02-11",
+          "poolCode": "H3",
+          "dataSource": "Y"
+        },
+        {
+          "pcDate": "2020-12-28",
+          "poolCode": "H2",
+          "dataSource": "Y"
+        }
+      ],
+      "comparisonPcDates": [
+        {
+          "pcDate": "2019-05-17",
+          "poolCode": "H1",
+          "dataSource": "F"
+        },
+        {
+          "pcDate": "2019-10-31",
+          "poolCode": "HX",
+          "dataSource": "F"
+        }
+      ]
+    },
+    {
+      "cabinCode": "F",
+      "pcDates": [
+        {
+          "pcDate": "2021-03-11",
+          "poolCode": "H3",
+          "dataSource": "Y"
+        },
+        {
+          "pcDate": "2020-10-28",
+          "poolCode": "H2",
+          "dataSource": "Y"
+        }
+      ],
+      "comparisonPcDates": [
+        {
+          "pcDate": "2019-06-17",
+          "poolCode": "H1",
+          "dataSource": "F"
+        },
+        {
+          "pcDate": "2019-07-31",
+          "poolCode": "HX",
+          "dataSource": "F"
+        }
+      ]
+    }
+  ]
+}
