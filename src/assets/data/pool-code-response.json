@@ -15,6 +15,12 @@
     },
     {
       "cabinCode": "C",
+      "pcDate": "2020-07-11",
+      "poolCode": "H1",
+      "dataSource": "Y"
+    },
+    {
+      "cabinCode": "C",
       "pcDate": "2020-12-28",
       "poolCode": "H2",
       "dataSource": "Y"

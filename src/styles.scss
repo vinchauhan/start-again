@@ -39,6 +39,21 @@
   100% { transform: rotate(360deg); }
 }
 
+#forecast-left {
+  width: 16%;
+  padding-right: 0;
+  //margin-top: 5px;
+}
+
+.modules-section {
+  border: 1px solid #E9EDF2;
+  background-color: #F7F9FB;
+  margin-top: 0;
+  overflow: hidden;
+  padding: 5px 5px 0;
+  min-height: 85vh;
+}
+
 .box .row {
 	margin: 0
 }
@@ -64,4 +79,100 @@
 	clear: both;
 	content: '';
 	display: table
+}
+
+.box .button-h1,
+.box .button-h1:focus {
+  background-color: #E6001F;
+  color: #fff;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+}
+
+.box .button-h2,
+.box .button-h2:focus {
+  background-color: #FD7E14;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+.box .button-h3,
+.box .button-h3:focus {
+  background-color: #FFFF00;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+.box .button-hl,
+.box .button-hl:focus {
+  background-color: #4DB059;
+  color: #fff;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+}
+
+.box .button-h,
+.box .button-h:focus {
+  background-color: #3524bc;
+  color: #fff;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+}
+
+.box .button-hx,
+.box .button-hx:focus {
+  background-color: #0078d2;
+  color: #fff;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+}
+
+.box .button-i,
+.box .button-i:focus {
+  background-color: #A9A9A9;
+  border: 0;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+  color: #000000;
+}
+
+.box .button-m,
+.box .button-m:focus {
+  background-color: #fff;
+  color: #000000;
+  border: 1px solid #000000;
+  font-size: 0.82rem;
+  /*margin: 5px 5px 0.3rem;
+  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
 }

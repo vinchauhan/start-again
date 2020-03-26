@@ -10,4 +10,5 @@ comparisonToDate: string;
 cabinCode: string;
 pcDates: PcDate[];
 comparisonPcDates: PcDate[];
+cabins: string;
 }

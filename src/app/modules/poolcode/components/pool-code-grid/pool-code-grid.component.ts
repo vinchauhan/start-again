@@ -39,4 +39,8 @@ export class PoolCodeGridComponent implements OnInit, AfterViewInit {
     this.loading = false;
   }
 
+  applyClassForPoolCode() {
+
+  }
+
 }

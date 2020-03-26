@@ -1,5 +1,3 @@
-import { PoolCodesRes } from './../../model/pool-code.response';
-import { element } from 'protractor';
 import { PcDate } from './../../model/pcDate';
 import { Component, OnInit } from '@angular/core';
 import {PoolcodeService} from '../../service/poolcode.service';
@@ -7,6 +5,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import {PoolCodesReq} from '../../model/pool-code.request';
 
 @Component({
   selector: 'app-pool-code',
@@ -18,7 +17,6 @@ export class PoolCodeComponent implements OnInit {
   poolCodes$: Observable<any>;
   pcDates$: Observable<PcDate[]>;
   comparePcDates$: Observable<PcDate[]>;
-  poolCodes;
   startDateDow;
   loading = true;
   startDate =  '2020-06-06';
@@ -40,12 +38,37 @@ export class PoolCodeComponent implements OnInit {
       cabinName: 'Fashion'
     }
   ];
+
+  poolcodes = [
+    {name: 'H1',  pos: 1 , isCurrent: 1 , className: 'button-h1'},
+    {name: 'M',   pos: 2 , isCurrent: 1 , className: 'button-m'},
+    {name: 'H2',  pos: 3 , isCurrent: 1 , className: 'button-h2'},
+    {name: 'H',   pos: 4 , isCurrent: 2 , className: 'button-h'}, // Should display only in selection pod
+    {name: 'HX',  pos: 4,  isCurrent: 0 , className: 'button-hx'}, // Should display only in counts pod
+    {name: 'H3',  pos: 5 , isCurrent: 1 , className: 'button-h3'},
+    {name: 'I',   pos: 6 , isCurrent: 1 , className: 'button-i'},
+    {name: 'HL',  pos: 7 , isCurrent: 1 , className: 'button-hl'}
+  ];
+
+  poolCodeReq: PoolCodesReq = {
+    actionType: 'select',
+    market: 'ABE|PHL',
+    fromDate: '2020-03-20',
+    toDate: '2021-03-19',
+    comparisonFromDate: '2019-03-19',
+    comparisonToDate: '2020-03-18',
+    cabinCode: 'Y|W|C|F',
+    pcDates: [],
+    comparisonPcDates: [],
+    cabins: 'Y|W|C|F'
+  };
+
   constructor(private poolcodeService: PoolcodeService) { }
 
   ngOnInit(): void {
-
     // First thing is to load the poolCode data from backend to initialize variables
-    this.loadPoolCodes();
+    // this.loadPoolCodes();
+    this.loadPoolCodesFromBackend();
     // Then create the pcDateGridData with defaults
     // a. This involves creating and array of pcDates with default
     moment().isoWeekday();
@@ -105,7 +128,40 @@ export class PoolCodeComponent implements OnInit {
     });
   }
 
+  public loadPoolCodesFromBackend() {
+    console.log('loading poolCodes.....');
+    this.poolCodes$ = this.poolcodeService.getPoolCodesFromBackend(this.poolCodeReq);
+    this.pcDates$ = this.poolCodes$
+      .pipe(
+        map(codes => codes.pcDates)
+      );
+    this.comparePcDates$ = this.poolCodes$
+      .pipe(
+        map(codes => codes.comparisonPcDates)
+      );
+    this.pcDates$.subscribe(pcDate => {
+      // console.log(pcDate);
+    });
+  }
+
   setClass(event, j, day) {
     console.log(event, j, day);
   }
+
+  somefunction() {
+    console.log('someFunction');
+  }
+
+  applyPoolCode() {
+    console.log('applyPoolCode');
+  }
+
+  undoPoolCodes() {
+    console.log('undo poolcode');
+  }
+
+  colorSelect(className) {
+    console.log(className);
+  }
+
 }

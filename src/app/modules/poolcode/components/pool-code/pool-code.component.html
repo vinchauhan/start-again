@@ -1,5 +1,10 @@
 <div class="tab-content modules-section">
+  <div class="row">
+    <div id="forecast-left" class="d-none d-lg-block">
+      <ng-template [ngTemplateOutlet]="sideBarTemplate"></ng-template>
+    </div>
     <ng-template [ngTemplateOutlet]="mainPoolCode"></ng-template>
+  </div>
 </div>
 
 <ng-template #mainPoolCode>
@@ -19,5 +24,220 @@
           </div>
       </div>
     </div>
+  </div>
+</ng-template>
+
+
+<ng-template #sideBarTemplate>
+  <div class="box" >
+    <h3 class="heading"
+        data-target="#filters-content"
+        aria-expanded="true" aria-controls="filters-content">Filters</h3>
+
+    <div id="filters-content" class="box-content date-time collapse show"
+         style="height: 100vh">
+      <h3>Date and Time</h3>
+<!--      <app-custom-from-to-date-->
+<!--        [fromDate]="poolFromDateDD"-->
+<!--        [toDate]="poolToDateDD"-->
+<!--        (dateChange)="dateChange($event)"-->
+<!--        [fromDateMinDate]="true">-->
+<!--      </app-custom-from-to-date>-->
+
+      <div id="today-button" class="today-button">
+        <div class="row">
+          <button class="btn btn-primary btn-sm btn-custom btn-noClick col-5"
+                  (click)="somefunction()">Today
+          </button>
+        </div>
+      </div>
+
+      <div id="cabin-poolCodes" class="box-content">
+        <div class="row">
+          <div class="col">
+            <div class="col8 cabin box-content">
+              <h3>Cabin</h3>
+              <div *ngFor='let cabin of selectedCabinsData; let i = index'>
+<!--                <label for='cabin{{ i+ 1}}' placement="right"-->
+<!--                       class="text-font-size padding-left-5"-->
+<!--                       ngbTooltip="{{cabin.cabinType}}">-->
+<!--                  <input type="checkbox" name="cabinsOptions"-->
+<!--                         id="cabin{{ i+ 1}}" value="{{cabin.key}}"-->
+<!--                         checked = 'true' (change)='cabinsFun($event)'-->
+<!--                         [(ngModel)]="cabinsData" name="cabinsName">-->
+                  {{cabin.cabinType}}
+<!--                </label>-->
+              </div>
+              <input id='selectallDaysOfWeek' type='checkbox' />
+              <label for='selectallDaysOfWeek' class="dow-label" style="margin: 5px">All</label> <br/>
+              <input id='deSelectallDaysOfWeek' type='checkbox' />
+              <label for='deSelectallDaysOfWeek' class="dow-label" style="margin: 5px">Clear</label>
+            </div>
+          </div>
+          <!-- End of Cabin-->
+          <span class="col col5"></span>
+          <div id="poolCodesPod" class="col">
+            <h3 class="heading" aria-expanded="true">PoolCodes</h3>
+            <div class="col" id="allPoolCodesContainer">
+              <div *ngFor='let poolcode of this.poolcodes; '>
+                <ng-container *ngIf="poolcode.isCurrent != 0">
+                  <button [id]="poolcode.name.concat('button')"
+                          [class]="'btn ' + poolcode.className+' btn-sm btn-pc-custom btn-noClick col-5'"
+                          style="alignment: center" (click)="colorSelect(poolcode.className)">{{poolcode.name}}</button>
+                </ng-container>
+              </div>
+              <!--<div class="row" id="h1haKit">
+                <button id="h1Button"
+                    class="btn button-h1 btn-sm btn-pc-custom btn-noClick col-5"
+                    style="alignment: center" (click)="colorSelect('button-h1')">H1</button>
+                <span class="col col8"></span>
+                <button id="mButton"
+                    class="btn btn-primary btn-sm btn-pc-custom btn-noClick col-5"
+                    style="alignment: right">M</button>
+              </div>
+              <div class="row" id="h2hbKit">
+                <button id="h2Button"
+                    class="btn button-h2 btn-sm btn-pc-custom btn-noClick col-5"
+                    style="alignment: left" (click)="colorSelect('button-h2')">H2</button>
+                <span class="col col8"></span>
+                <button id="hButton"
+                    class="btn btn-primary btn-sm btn-pc-custom btn-noClick col-5"
+                    style="alignment: right">H</button>
+              </div>
+              <div class="row" id="h3hlKit">
+                <button id="h3Button"
+                    class="btn button-h3 btn-sm btn-pc-custom btn-noClick col-5"
+                    style="alignment: left" (click)="colorSelect('button-h3')">H3</button>
+                <span class="col col8"></span>
+                <button id="IButton"
+                        class="btn button-i btn-sm btn-pc-custom btn-noClick col-5"
+                        style="alignment: left" (click)="colorSelect('button-i')">I</button>
+              </div>
+              <div class="row" id="ixKit">
+                <button id="hLButton"
+                        class="btn btn-primary btn-sm btn-pc-custom btn-noClick col-5"
+                        style="alignment: right">HL</button>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="comparatorPod" class="box-content">
+        <h3>Comparison</h3>
+<!--        <select id="comparisonSelector"-->
+<!--                class="form-control form-control-sm _time_interval"-->
+<!--                (change)="setComparisonValues($event.target)"-->
+<!--                [(ngModel)]='selectedCompare' >-->
+<!--          <option id="lastYearOption"   value="1">Last Year   </option>-->
+<!--          <option id="twoYearsOption"   value="2">2 Years ago </option>-->
+<!--          <option id="threeYearsOption" value="3">3 Years ago </option>-->
+<!--        </select>-->
+      </div>
+
+      <div id="poolCountPod" class="box-content">
+        <h3>Pool Code Count</h3>
+        <!--				<div class="col " id="poolCodesCountContainer">-->
+        <!--&lt;!&ndash;					<div *ngFor='let poolcode of this.poolcodes; '>&ndash;&gt;-->
+        <!--&lt;!&ndash;						<ng-container *ngIf="poolcode.isCurrent != 2">&ndash;&gt;-->
+        <!--&lt;!&ndash;							<button [id]="poolcode.name.concat('button')"&ndash;&gt;-->
+        <!--&lt;!&ndash;							        [class]="'btn ' + poolcode.className+' btn-sm btn-pc-custom btn-noClick col-5'"&ndash;&gt;-->
+        <!--&lt;!&ndash;							        style="alignment: center" (click)="colorSelect(poolcode.className)">{{poolcode.name}}</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;						</ng-container>&ndash;&gt;-->
+        <!--&lt;!&ndash;					</div>&ndash;&gt;-->
+
+        <!--					<div id="h1CountKit"-->
+        <!--						 class="row">-->
+        <!--						<div class="col">-->
+        <!--						<button id="h1Count"-->
+        <!--								class="btn button-h1 btn-sm btn-pc-custom btn-noClick">H1</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--					<div id="h2CountKit"-->
+        <!--						 class="row">-->
+        <!--						<div class="col">-->
+        <!--						<button id="h2Count"-->
+        <!--								class="btn button-h2 btn-sm btn-pc-custom btn-noClick">H2</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--					<div class="row" id="h3CountKit">-->
+        <!--						<div class="col">-->
+        <!--						<button id="h3Count"-->
+        <!--								class="btn button-h3 btn-sm btn-pc-custom btn-noClick">H3</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--					<div id="hlCountKit"-->
+        <!--					     class="row">-->
+        <!--						<div class="col">-->
+        <!--							<button id="hlCount"-->
+        <!--							        class="btn button-hl btn-sm btn-pc-custom btn-noClick">HL</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--					<div id="mCountKit"-->
+        <!--						 class="row">-->
+        <!--						<div class="col">-->
+        <!--						<button id="mCount"-->
+        <!--								class="btn button-m btn-sm btn-pc-custom btn-noClick">M</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--					<div id="hxCountKit"-->
+        <!--						 class="row">-->
+        <!--						<div class="col">-->
+        <!--						<button id="hxCount"-->
+        <!--								class="btn button-hx btn-sm btn-pc-custom btn-noClick">HX</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--					<div class="row" id="iCountKit">-->
+        <!--						<div class="col">-->
+        <!--							<button id="ICount"-->
+        <!--									class="btn button-i btn-sm btn-pc-custom btn-noClick">I</button>-->
+        <!--						</div>-->
+        <!--						<div class="col">11</div>-->
+        <!--						<div class="col">12</div>-->
+        <!--					</div>-->
+        <!--				</div>-->
+        <div>
+          <div id="userActionPod" class="row padding-top-10">
+
+            <button class="btn btn-sm btn-pc-apply btn-noClick col-5" (click)="applyPoolCode()" >
+              <!--(click)="modifyDimension('apply')"
+              [disabled]="isApplyBtnDisabled">-->
+              apply
+            </button>
+            <div class="col col-2"></div>
+            <!--<button class="btn padding-0 col undo-button" (click)="onClickUndoOrReset('undo')"
+                [disabled]="isReadOnlyField">
+              Undo
+            </button>
+            <div class="col col5"></div>-->
+            <!--<button class="btn btn-sm btn-pc-reset btn-noClick col-5" >-->
+            <!--(click)="onClickReset('reset')"
+            [disabled]="isReadOnlyField">-->
+            <!--reset
+          </button>-->
+            <button class="btn btn-sm btn-pc-undo btn-noClick col-5"  (click)="undoPoolCodes()">
+
+              <!--(click)="onClickUndo('undo')"
+              [disabled]="isReadOnlyField">-->
+              undo
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </ng-template>

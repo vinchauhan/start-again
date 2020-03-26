@@ -17,13 +17,13 @@
                                   <div class="row">
                                     <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
                                   </div>
-                                  <div class="row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
+                                  <div class="row grid-row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
 
                                     <ng-container *ngIf="i === 0">
                                       <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
                                     </ng-container>
                                     <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                      <span [ngbTooltip]="pcDate | json">{{ pcDate.pcDate | dateFormater }}</span>
+                                      <span [ngbTooltip]="pcDate | json" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -37,13 +37,13 @@
                                     <div class="row">
                                         <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
                                     </div>
-                                    <div class="row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
+                                    <div class="row grid-row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
                                     <!-- padding div to shift the cells based on dow -->
                                         <ng-container *ngIf="i === 0">
                                             <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
                                         </ng-container>
                                         <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                            <span [ngbTooltip]="pcDate | json">{{ pcDate.pcDate | dateFormater }}</span>
+                                            <span [ngbTooltip]="pcDate | json" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
                                         </div>
                                     </div>
                                 </div>
