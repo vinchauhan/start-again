@@ -23,7 +23,7 @@
                                       <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
                                     </ng-container>
                                     <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                      <span [ngbTooltip]="pcDate | json" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
+                                      <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -43,7 +43,7 @@
                                             <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
                                         </ng-container>
                                         <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                            <span [ngbTooltip]="pcDate | json" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
+                                            <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
                                         </div>
                                     </div>
                                 </div>
