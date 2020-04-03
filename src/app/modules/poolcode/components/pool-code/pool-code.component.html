@@ -18,7 +18,12 @@
           <div class="row">
             <div class="col">
               <div class="box collapse show" id="poolMainContent">
-                <pool-code-grid [cabins]="selectedCabinsData" [poolCodes]="poolCodes$" [pcDateGridData]="pcDateGridData" [startDateDow]="startDateDow"></pool-code-grid>
+                <pool-code-grid [cabins]="selectedCabinsData"
+                                [pcDateGridData]="poolCodeGridDataArray"
+                                [poolGridDataWithCabins]="poolGridDataWithCabins"
+                                [startDateDow]="startDateDow"
+                                [selectedPoolCode]="selectedPoolCode"
+                (applyPoolCode)="assignPoolCodeToOriginal($event)"></pool-code-grid>
               </div>
             </div>
           </div>
@@ -58,15 +63,15 @@
             <div class="col8 cabin box-content">
               <h3>Cabin</h3>
               <div *ngFor='let cabin of selectedCabinsData; let i = index'>
-<!--                <label for='cabin{{ i+ 1}}' placement="right"-->
-<!--                       class="text-font-size padding-left-5"-->
-<!--                       ngbTooltip="{{cabin.cabinType}}">-->
+                <label for='cabin' placement="right"
+                       class="text-font-size padding-left-5"
+                       ngbTooltip="{{cabin.cabinType}}">
 <!--                  <input type="checkbox" name="cabinsOptions"-->
 <!--                         id="cabin{{ i+ 1}}" value="{{cabin.key}}"-->
 <!--                         checked = 'true' (change)='cabinsFun($event)'-->
 <!--                         [(ngModel)]="cabinsData" name="cabinsName">-->
                   {{cabin.cabinType}}
-<!--                </label>-->
+                </label>
               </div>
               <input id='selectallDaysOfWeek' type='checkbox' />
               <label for='selectallDaysOfWeek' class="dow-label" style="margin: 5px">All</label> <br/>
@@ -83,56 +88,50 @@
                 <ng-container *ngIf="poolcode.isCurrent != 0">
                   <button [id]="poolcode.name.concat('button')"
                           [class]="'btn ' + poolcode.className+' btn-sm btn-pc-custom btn-noClick col-5'"
-                          style="alignment: center" (click)="colorSelect(poolcode.className)">{{poolcode.name}}</button>
+                          style="alignment: center" (click)="colorSelect(poolcode.name)">{{poolcode.name}}</button>
                 </ng-container>
               </div>
-              <!--<div class="row" id="h1haKit">
-                <button id="h1Button"
-                    class="btn button-h1 btn-sm btn-pc-custom btn-noClick col-5"
-                    style="alignment: center" (click)="colorSelect('button-h1')">H1</button>
-                <span class="col col8"></span>
-                <button id="mButton"
-                    class="btn btn-primary btn-sm btn-pc-custom btn-noClick col-5"
-                    style="alignment: right">M</button>
-              </div>
-              <div class="row" id="h2hbKit">
-                <button id="h2Button"
-                    class="btn button-h2 btn-sm btn-pc-custom btn-noClick col-5"
-                    style="alignment: left" (click)="colorSelect('button-h2')">H2</button>
-                <span class="col col8"></span>
-                <button id="hButton"
-                    class="btn btn-primary btn-sm btn-pc-custom btn-noClick col-5"
-                    style="alignment: right">H</button>
-              </div>
-              <div class="row" id="h3hlKit">
-                <button id="h3Button"
-                    class="btn button-h3 btn-sm btn-pc-custom btn-noClick col-5"
-                    style="alignment: left" (click)="colorSelect('button-h3')">H3</button>
-                <span class="col col8"></span>
-                <button id="IButton"
-                        class="btn button-i btn-sm btn-pc-custom btn-noClick col-5"
-                        style="alignment: left" (click)="colorSelect('button-i')">I</button>
-              </div>
-              <div class="row" id="ixKit">
-                <button id="hLButton"
-                        class="btn btn-primary btn-sm btn-pc-custom btn-noClick col-5"
-                        style="alignment: right">HL</button>
-              </div>-->
             </div>
+          </div>
+        </div>
+        <div>
+          <div id="userActionPod" class="row padding-top-10">
+
+            <button class="btn btn-sm btn-pc-apply btn-noClick col-5" (click)="applyPoolCode()" >
+              <!--(click)="modifyDimension('apply')"
+              [disabled]="isApplyBtnDisabled">-->
+              apply
+            </button>
+            <div class="col col-2"></div>
+            <!--<button class="btn padding-0 col undo-button" (click)="onClickUndoOrReset('undo')"
+                [disabled]="isReadOnlyField">
+              Undo
+            </button>
+            <div class="col col5"></div>-->
+            <!--<button class="btn btn-sm btn-pc-reset btn-noClick col-5" >-->
+            <!--(click)="onClickReset('reset')"
+            [disabled]="isReadOnlyField">-->
+            <!--reset
+          </button>-->
+            <button class="btn btn-sm btn-pc-undo btn-noClick col-5"  (click)="undoPoolCodes()">
+
+              <!--(click)="onClickUndo('undo')"
+              [disabled]="isReadOnlyField">-->
+              undo
+            </button>
           </div>
         </div>
       </div>
 
       <div id="comparatorPod" class="box-content">
         <h3>Comparison</h3>
-<!--        <select id="comparisonSelector"-->
-<!--                class="form-control form-control-sm _time_interval"-->
-<!--                (change)="setComparisonValues($event.target)"-->
-<!--                [(ngModel)]='selectedCompare' >-->
-<!--          <option id="lastYearOption"   value="1">Last Year   </option>-->
-<!--          <option id="twoYearsOption"   value="2">2 Years ago </option>-->
-<!--          <option id="threeYearsOption" value="3">3 Years ago </option>-->
-<!--        </select>-->
+        <select id="comparisonSelector"
+                class="form-control form-control-sm _time_interval"
+                (change)="setComparisonValues($event.target.value)">
+          <option id="lastYearOption" value="1">Last Year</option>
+          <option id="twoYearsOption" value="2">2 Years ago</option>
+          <option id="threeYearsOption" value="3">3 Years ago</option>
+        </select>
       </div>
 
       <div id="poolCountPod" class="box-content">
@@ -208,33 +207,7 @@
         <!--						<div class="col">12</div>-->
         <!--					</div>-->
         <!--				</div>-->
-        <div>
-          <div id="userActionPod" class="row padding-top-10">
 
-            <button class="btn btn-sm btn-pc-apply btn-noClick col-5" (click)="applyPoolCode()" >
-              <!--(click)="modifyDimension('apply')"
-              [disabled]="isApplyBtnDisabled">-->
-              apply
-            </button>
-            <div class="col col-2"></div>
-            <!--<button class="btn padding-0 col undo-button" (click)="onClickUndoOrReset('undo')"
-                [disabled]="isReadOnlyField">
-              Undo
-            </button>
-            <div class="col col5"></div>-->
-            <!--<button class="btn btn-sm btn-pc-reset btn-noClick col-5" >-->
-            <!--(click)="onClickReset('reset')"
-            [disabled]="isReadOnlyField">-->
-            <!--reset
-          </button>-->
-            <button class="btn btn-sm btn-pc-undo btn-noClick col-5"  (click)="undoPoolCodes()">
-
-              <!--(click)="onClickUndo('undo')"
-              [disabled]="isReadOnlyField">-->
-              undo
-            </button>
-          </div>
-        </div>
       </div>
 
     </div>

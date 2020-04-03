@@ -1,57 +1,145 @@
-    <div class="container-fluid">
-        <div class="row" style="width: max-content; background-color: white">
-            <div class="col" *ngFor="let cabin of cabins"  style="padding: 5px; width: 650px">
-                <div class="box">
-                    <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolCodeGrid">
-                        {{cabin.cabinName}}
-                    </h3>
+<div class="container-fluid">
+  <div class="row" style="width: max-content; background-color: white">
+    <div class="col" *ngFor="let poolCodeGridData of pcDateGridData"  style="padding: 5px; width: 650px">
+      <div class="box">
+        <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolCodeGrid">
+          {{poolCodeGridData.cabinCode | cabinName}}
+        </h3>
+      </div>
+      <div class="box-content collapse show" id="poolCodeGrid">
+        <div class="container">
+          <div class="row" style="width:max-content; background-color: white">
+            <div class="col-auto">
+              <div class="box" style="margin-left: 10px; margin-right: 25px">
+                <div class="row month-range">
+                  <span>March 2020 to March 2021</span>
                 </div>
-                <div class="box-content collapse show" id="poolCodeGrid">
-                    <div class="container">
-                        <div class="row" style="width:max-content; background-color: white">
-                            <div class="col-auto">
-                                <div class="box" style="margin-left: 10px; margin-right: 25px">
-                                  <div class="row month-range">
-                                    <span>March 2020 to March 2021</span>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
-                                  </div>
-                                  <div class="row grid-row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
-
-                                    <ng-container *ngIf="i === 0">
-                                      <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
-                                    </ng-container>
-                                    <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                      <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-
-                            <div class="col-auto">
-                                <div class="box">
-                                    <div class="row month-range">
-                                        <span>March 2019 to March 2020</span>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
-                                    </div>
-                                    <div class="row grid-row" *ngFor="let pcDateRow of pcDateGridData; let i = index">
-                                    <!-- padding div to shift the cells based on dow -->
-                                        <ng-container *ngIf="i === 0">
-                                            <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
-                                        </ng-container>
-                                        <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">
-                                            <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                      </div>
-                    </div>
+                <div class="row">
+                  <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
                 </div>
+                <div class="row grid-row" *ngFor="let pcDateRow of poolCodeGridData.pcdateRows; let i = index">
+
+                  <ng-container *ngIf="i === 0">
+                    <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
+                  </ng-container>
+                  <div class="col pc-dates" *ngFor="let pcDate of pcDateRow.pcDate">
+                    <span id = "pcDates" [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()" (click)="applyClassForPoolCode(poolCodeGridData.cabinCode, pcDate, $event, i)">{{ pcDate.pcDate | dateFormater }}</span>
+                  </div>
+                </div>
+<!--                  <ng-container *ngFor="let pcDate of poolCodeGridData.pcDates; let i = index">-->
+<!--                    <div class="row grid-row" *ngIf="checkEndOfWeek(pcDate.pcDate, i)">-->
+<!--                      <ng-container>-->
+<!--                        <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>-->
+<!--                      </ng-container>-->
+<!--                      <div class="col pc-dates">-->
+<!--                        <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()" (click)="applyClassForPoolCode(pcDate)">{{ pcDate.pcDate | dateFormater }}</span>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="col pc-dates" *ngIf="!checkEndOfWeek(pcDate.pcDate, i)">-->
+<!--                      <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()" (click)="applyClassForPoolCode(pcDate)">{{ pcDate.pcDate | dateFormater }}</span>-->
+<!--                    </div>-->
+<!--                  </ng-container>-->
+<!--                  <div class="row grid-row" *ngFor="let pcDateObj of poolCodeGridData.pcDates">-->
+<!--                    {{pcDateObj.pcDate | dateFormater}}-->
+<!--                  </div>-->
+              </div>
             </div>
+
+            <div class="col-auto">
+              <div class="box">
+                <div class="row month-range">
+                  <span>March 2019 to March 2020</span>
+                </div>
+                <div class="row">
+                  <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>
+                </div>
+                <div class="row grid-row" *ngFor="let pcDateRow of poolCodeGridData.comparePcDateRows; let i = index">
+                  <!-- padding div to shift the cells based on dow -->
+                  <ng-container *ngIf="i === 0">
+                    <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>
+                  </ng-container>
+                  <div class="col pc-dates" *ngFor="let pcDate of pcDateRow.pcDate">
+                    <span id = "comparePcDates" [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--    <div class="container-fluid">-->
+<!--        <div class="row" style="width: max-content; background-color: white">-->
+<!--            <div class="col" *ngFor="let cabin of cabins"  style="padding: 5px; width: 650px">-->
+<!--                <div class="box">-->
+<!--                    <h3 type="button" class="heading" data-toggle="collapse" aria-expanded="true" data-target="#poolCodeGrid">-->
+<!--                        {{cabin.cabinName}}-->
+<!--                    </h3>-->
+<!--                </div>-->
+<!--                <div class="box-content collapse show" id="poolCodeGrid">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row" style="width:max-content; background-color: white">-->
+<!--                            <div class="col-auto">-->
+<!--                                <div class="box" style="margin-left: 10px; margin-right: 25px">-->
+<!--                                  <div class="row month-range">-->
+<!--                                    <span>March 2020 to March 2021</span>-->
+<!--                                  </div>-->
+<!--                                  <div class="row">-->
+<!--                                    <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>-->
+<!--                                  </div>-->
+<!--                                  <div class="row grid-row" *ngFor="let pcDateRow of pcDateGridData; let i = index">-->
+
+<!--                                    <ng-container *ngIf="i === 0">-->
+<!--                                      <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>-->
+<!--                                    </ng-container>-->
+<!--                                    <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">-->
+<!--                                      <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()" (click)="applyClassForPoolCode(pcDate)">{{ pcDate.pcDate | dateFormater }}</span>-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="col-auto">-->
+<!--                                <div class="box">-->
+<!--                                    <div class="row month-range">-->
+<!--                                        <span>March 2019 to March 2020</span>-->
+<!--                                    </div>-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col pc-days" *ngFor="let days of daysHeader">{{ days }}</div>-->
+<!--                                    </div>-->
+<!--                                    <div class="row grid-row" *ngFor="let pcDateRow of pcDateGridData; let i = index">-->
+<!--                                    &lt;!&ndash; padding div to shift the cells based on dow &ndash;&gt;-->
+<!--                                        <ng-container *ngIf="i === 0">-->
+<!--                                            <div class="col pc-dates" *ngFor="let pads of padNumbers"></div>-->
+<!--                                        </ng-container>-->
+<!--                                        <div class="col pc-dates" *ngFor="let pcDate of pcDateRow">-->
+<!--                                            <span [ngbTooltip]="pcDate.poolCode + '|' + pcDate.pcDate" [ngClass]="'button-' + pcDate.poolCode.toLowerCase()">{{ pcDate.pcDate | dateFormater }}</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 

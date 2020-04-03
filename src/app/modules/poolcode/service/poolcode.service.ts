@@ -20,11 +20,15 @@ export class PoolcodeService {
 
   }
 
-  getPoolCodesAsync() {
-    return this.http.get(this.poolCodeURL);
+  getPoolCodesAsync(): Observable<PoolCodesRes> {
+    return this.http.get<PoolCodesRes>(this.poolCodeURL);
   }
-  getPoolCodesFromBackend(json: PoolCodesReq) {
-    return this.http.post(this.poolCodeURLBackend + 'holiday-poolcodes', json, this.httpOptions);
+  getPoolCodesFromBackend(json: PoolCodesReq): Observable<PoolCodesRes> {
+    return this.http.post<PoolCodesRes>(this.poolCodeURLBackend + 'holiday-poolcodes', json, this.httpOptions);
+  }
+
+  updateAllPoolCodesDate(updatePoolCodeObj) {
+    return this.http.post<PoolCodesRes>(this.poolCodeURLBackend + 'holiday-poolcode', updatePoolCodeObj, this.httpOptions);
   }
 
 }
