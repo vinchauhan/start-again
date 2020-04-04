@@ -59,9 +59,8 @@
 
       <div id="cabin-poolCodes" class="box-content">
         <div class="row">
-          <div class="col">
-            <div class="col8 cabin box-content">
-              <h3>Cabin</h3>
+          <div class="col cabin box-content">
+            <h3>Cabin</h3>
               <div *ngFor='let cabin of selectedCabinsData; let i = index'>
                 <label for='cabin' placement="right"
                        class="text-font-size padding-left-5"
@@ -73,18 +72,12 @@
                   {{cabin.cabinType}}
                 </label>
               </div>
-              <input id='selectallDaysOfWeek' type='checkbox' />
-              <label for='selectallDaysOfWeek' class="dow-label" style="margin: 5px">All</label> <br/>
-              <input id='deSelectallDaysOfWeek' type='checkbox' />
-              <label for='deSelectallDaysOfWeek' class="dow-label" style="margin: 5px">Clear</label>
-            </div>
           </div>
           <!-- End of Cabin-->
-          <span class="col col5"></span>
           <div id="poolCodesPod" class="col">
             <h3 class="heading" aria-expanded="true">PoolCodes</h3>
             <div class="col" id="allPoolCodesContainer">
-              <div *ngFor='let poolcode of this.poolcodes; '>
+              <div *ngFor='let poolcode of poolcodes'>
                 <ng-container *ngIf="poolcode.isCurrent != 0">
                   <button [id]="poolcode.name.concat('button')"
                           [class]="'btn ' + poolcode.className+' btn-sm btn-pc-custom btn-noClick col-5'"
@@ -136,77 +129,9 @@
 
       <div id="poolCountPod" class="box-content">
         <h3>Pool Code Count</h3>
-        <!--				<div class="col " id="poolCodesCountContainer">-->
-        <!--&lt;!&ndash;					<div *ngFor='let poolcode of this.poolcodes; '>&ndash;&gt;-->
-        <!--&lt;!&ndash;						<ng-container *ngIf="poolcode.isCurrent != 2">&ndash;&gt;-->
-        <!--&lt;!&ndash;							<button [id]="poolcode.name.concat('button')"&ndash;&gt;-->
-        <!--&lt;!&ndash;							        [class]="'btn ' + poolcode.className+' btn-sm btn-pc-custom btn-noClick col-5'"&ndash;&gt;-->
-        <!--&lt;!&ndash;							        style="alignment: center" (click)="colorSelect(poolcode.className)">{{poolcode.name}}</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;						</ng-container>&ndash;&gt;-->
-        <!--&lt;!&ndash;					</div>&ndash;&gt;-->
-
-        <!--					<div id="h1CountKit"-->
-        <!--						 class="row">-->
-        <!--						<div class="col">-->
-        <!--						<button id="h1Count"-->
-        <!--								class="btn button-h1 btn-sm btn-pc-custom btn-noClick">H1</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--					<div id="h2CountKit"-->
-        <!--						 class="row">-->
-        <!--						<div class="col">-->
-        <!--						<button id="h2Count"-->
-        <!--								class="btn button-h2 btn-sm btn-pc-custom btn-noClick">H2</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--					<div class="row" id="h3CountKit">-->
-        <!--						<div class="col">-->
-        <!--						<button id="h3Count"-->
-        <!--								class="btn button-h3 btn-sm btn-pc-custom btn-noClick">H3</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--					<div id="hlCountKit"-->
-        <!--					     class="row">-->
-        <!--						<div class="col">-->
-        <!--							<button id="hlCount"-->
-        <!--							        class="btn button-hl btn-sm btn-pc-custom btn-noClick">HL</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--					<div id="mCountKit"-->
-        <!--						 class="row">-->
-        <!--						<div class="col">-->
-        <!--						<button id="mCount"-->
-        <!--								class="btn button-m btn-sm btn-pc-custom btn-noClick">M</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--					<div id="hxCountKit"-->
-        <!--						 class="row">-->
-        <!--						<div class="col">-->
-        <!--						<button id="hxCount"-->
-        <!--								class="btn button-hx btn-sm btn-pc-custom btn-noClick">HX</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--					<div class="row" id="iCountKit">-->
-        <!--						<div class="col">-->
-        <!--							<button id="ICount"-->
-        <!--									class="btn button-i btn-sm btn-pc-custom btn-noClick">I</button>-->
-        <!--						</div>-->
-        <!--						<div class="col">11</div>-->
-        <!--						<div class="col">12</div>-->
-        <!--					</div>-->
-        <!--				</div>-->
+        <ng-container *ngIf="this.pcDatesOnScreen">
+          <app-pool-code-count [pcDates]="this.pcDatesOnScreen" [comparePcDates]="this.comparePcDatesOnScreen" [typeOfPoolCodes]="this.poolcodes"></app-pool-code-count>
+        </ng-container>
 
       </div>
 

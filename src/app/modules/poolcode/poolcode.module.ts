@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {CabinNamePipe} from './pipes/cabin-name.pipe';
 import {EndOfWeekPipe} from './pipes/end-of-week.pipe';
+import { PoolCodeCountComponent } from './components/pool-code-count/pool-code-count.component';
 
 
 
@@ -17,7 +18,8 @@ import {EndOfWeekPipe} from './pipes/end-of-week.pipe';
     PoolCodeGridComponent,
     DateFormatter,
     CabinNamePipe,
-    EndOfWeekPipe
+    EndOfWeekPipe,
+    PoolCodeCountComponent
   ],
     imports: [
         CommonModule,

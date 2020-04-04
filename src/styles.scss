@@ -81,98 +81,256 @@
 	display: table
 }
 
-.box .button-h1,
-.box .button-h1:focus {
-  background-color: #E6001F;
-  color: #fff;
+//.box .button-h1,
+//.box .button-h1:focus {
+//  background-color: #E6001F;
+//  color: #fff;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//}
+//
+//.box .button-h2,
+//.box .button-h2:focus {
+//  background-color: #FD7E14;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//  color: #000000;
+//}
+//
+//.box .button-h3,
+//.box .button-h3:focus {
+//  background-color: #FFFF00;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//  color: #000000;
+//}
+//
+//.box .button-hl,
+//.box .button-hl:focus {
+//  background-color: #4DB059;
+//  color: #fff;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//}
+//
+//.box .button-h,
+//.box .button-h:focus {
+//  background-color: #3524bc;
+//  color: #fff;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//}
+//
+//.box .button-hx
+//.box .button-hx:focus {
+//  background-color: #0078d2;
+//  color: #fff;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//}
+//
+//.box .button-i,
+//.box .button-i:focus {
+//  background-color: #A9A9A9;
+//  border: 0;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//  color: #000000;
+//}
+//
+//.box .button-m,
+//.box .button-m:focus {
+//  background-color: #fff;
+//  color: #000000;
+//  border: 1px solid #000000;
+//  font-size: 0.82rem;
+//  /*margin: 5px 5px 0.3rem;
+//  padding: 2px 0;*/
+//  outline: 0;
+//  text-transform: capitalize;
+//}
+
+.button-h1
+{
+  background-color: #0078D2;
   border: 0;
+  color: #FFF;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
   outline: 0;
   text-transform: capitalize;
 }
 
-.box .button-h2,
-.box .button-h2:focus {
-  background-color: #FD7E14;
+.button-h1Selected
+{
+  background-color: #00467F;
   border: 0;
+  color: #FFF;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
   outline: 0;
   text-transform: capitalize;
-  color: #000000;
+  text-decoration: underline;
 }
 
-.box .button-h3,
-.box .button-h3:focus {
-  background-color: #FFFF00;
+.button-h2,
+.button-h2:focus {
+  background-color: #3E76CE;
   border: 0;
+  color: #FFF;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
-  outline: 0;
-  text-transform: capitalize;
-  color: #000000;
-}
-
-.box .button-hl,
-.box .button-hl:focus {
-  background-color: #4DB059;
-  color: #fff;
-  border: 0;
-  font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
   outline: 0;
   text-transform: capitalize;
 }
 
-.box .button-h,
-.box .button-h:focus {
-  background-color: #3524bc;
-  color: #fff;
+.button-h2Selected
+{
+  background-color: #035BE5;
   border: 0;
+  color: #FFF;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
+  outline: 0;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.button-h3,
+.button-h3:focus {
+  background-color: #91CFFD;
+  border: 0;
+  color: #FFF;
+  font-size: 0.82rem;
   outline: 0;
   text-transform: capitalize;
 }
 
-.box .button-hx
-.box .button-hx:focus {
+.button-h3Selected
+{
+  background-color: #47B0FE;
+  border: 0;
+  color: #FFF;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.button-hl,
+.button-hl:focus {
+  background-color: #ED454B;
+  border: 0;
+  color: #FFF;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+}
+
+.button-hlSelected
+{
+  background-color: #E22B31;
+  border: 0;
+  color: #FFF;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.button-h,
+.button-h:focus {
+  background-color: #008712;
+  border: 0;
+  color: #FFF;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+}
+
+.button-hSelected
+{
+  background-color: #02530C;
+  border: 0;
+  color: #FFF;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.button-hx,
+.button-hx:focus {
   background-color: #0078d2;
-  color: #fff;
   border: 0;
+  color: #FFF;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
   outline: 0;
   text-transform: capitalize;
 }
 
-.box .button-i,
-.box .button-i:focus {
-  background-color: #A9A9A9;
+.button-i,
+.button-i:focus {
+  background-color: #BFBFBF;
   border: 0;
+  color: #000;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
   outline: 0;
   text-transform: capitalize;
-  color: #000000;
 }
 
-.box .button-m,
-.box .button-m:focus {
+.button-iSelected
+{
+  background-color: #737373;
+  border: 0;
+  color: #000;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.button-m
+.button-i:focus{
   background-color: #fff;
-  color: #000000;
   border: 1px solid #000000;
+  color: #000000;
   font-size: 0.82rem;
-  /*margin: 5px 5px 0.3rem;
-  padding: 2px 0;*/
   outline: 0;
   text-transform: capitalize;
 }
+
+.button-mSelected
+{
+  background-color: #fff;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 0.82rem;
+  outline: 0;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+

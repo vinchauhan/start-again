@@ -32,6 +32,7 @@ export class PoolCodeComponent implements OnInit {
   startComparePcDate = moment(this.startDate).subtract(1, 'year').format('YYYY-MM-DD');
   endComparePcDate = moment(this.endDate).subtract(1, 'year').format('YYYY-MM-DD');
   pcDates: PcDate[] = [];
+  comparePcDates: PcDate[] = [];
   pcDateGridData = [];
   poolGridDataWithCabins: CabinCodes[] = [];
   weeks;
@@ -369,6 +370,8 @@ export class PoolCodeComponent implements OnInit {
         })
       )
       .subscribe(res => {
+        this.pcDatesOnScreen = res.pcDates;
+        this.comparePcDatesOnScreen = res.comparisonPcDates;
         this.repaintWithResponse(res);
       });
   }
@@ -431,7 +434,8 @@ export class PoolCodeComponent implements OnInit {
         })
       )
       .subscribe(res => {
-        console.log(res)
+        this.pcDatesOnScreen = res.pcDates;
+        this.comparePcDatesOnScreen = res.comparisonPcDates;
         this.repaintWithResponse(res);
       });
   }
