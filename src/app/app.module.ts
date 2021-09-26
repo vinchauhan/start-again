@@ -4,6 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {NgxsModule} from '@ngxs/store';
+import {environment} from '../environments/environment';
+import {MarketsState} from './shared/state/markets-state';
+import {SharedModule} from './shared/shared.module';
+import {HttpClientModule} from '@angular/common/http';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 
 
 @NgModule({
@@ -14,7 +21,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule
+    NgSelectModule,
+    NgbModule,
+    HttpClientModule,
+    NgxsModule.forRoot([MarketsState], {developmentMode: !environment.production}),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

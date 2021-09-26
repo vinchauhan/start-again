@@ -2,8 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
+
+/* Localhost */
+const apiCM = 'http://localhost:8080/cm/';
+
+// const apiCM = 'http://rmappt22.qcorpaa.aa.com:9082/cm/';
+
+
 export const environment = {
-  production: false
+  production: false,
+  allMarkets: apiCM + 'all-markets',
+  userMarkets: apiCM + 'user-markets',
 };
 
 /*

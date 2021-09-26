@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { PoolCodesRes } from '../model/pool-code.response';
 import {PoolCodesReq} from '../model/pool-code.request';
 
 @Injectable()
