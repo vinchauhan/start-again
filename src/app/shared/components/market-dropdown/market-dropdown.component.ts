@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Store} from '@ngxs/store';
+import {Select, Store} from '@ngxs/store';
 import {MarketActions} from '../../actions/market-action';
+import { MarketDropdownModel } from '../../models/market-dropdown';
+import { MarketsState } from '../../state/markets-state';
 
 @Component({
   selector: 'app-market-dropdown',
@@ -9,25 +11,25 @@ import {MarketActions} from '../../actions/market-action';
 })
 export class MarketDropdownComponent implements OnInit {
 
-  @Input() setDropdown = '';
-  disabled = false;
-  @Input() marketList = [];
-  selectedMarketObj = {};
+  disabled = true;
+  @Select (MarketsState.getMarketDropdownList) 
+  marketList$: MarketDropdownModel[];
+  selectedMarketObj = {'hello':'world'};
 
   constructor(private store: Store) {
-    
+  
   }
 
   ngOnInit(): void {
     console.log('MarketDropdown initialized');
-    if (!this.marketList) {
+    if (!this.marketList$) {
       this.store.dispatch(new MarketActions());
     }
 
   }
 
   selectedMarket(event: any) {
-    console.log(event);
+   
   }
 
 }

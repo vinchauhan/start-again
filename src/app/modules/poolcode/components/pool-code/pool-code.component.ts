@@ -110,7 +110,7 @@ export class PoolCodeComponent implements OnInit {
       }
     });
   });
-    console.log('pcDateGridData : ', this.pcDateGridData);
+    // console.log('pcDateGridData : ', this.pcDateGridData);
   }
   public loadPoolCodes() {
     console.log('loading poolCodes.....');
@@ -129,7 +129,7 @@ export class PoolCodeComponent implements OnInit {
   }
 
   public loadPoolCodesFromBackend() {
-    console.log('loading poolCodes.....');
+    // console.log('loading poolCodes.....');
     this.poolCodes$ = this.poolcodeService.getPoolCodesFromBackend(this.poolCodeReq);
     this.pcDates$ = this.poolCodes$
       .pipe(
@@ -145,7 +145,7 @@ export class PoolCodeComponent implements OnInit {
   }
 
   setClass(event, j, day) {
-    console.log(event, j, day);
+    // console.log(event, j, day);
   }
 
   somefunction() {

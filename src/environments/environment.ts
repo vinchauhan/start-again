@@ -14,6 +14,7 @@ export const environment = {
   production: false,
   allMarkets: apiCM + 'all-markets',
   userMarkets: apiCM + 'user-markets',
+  
 };
 
 /*

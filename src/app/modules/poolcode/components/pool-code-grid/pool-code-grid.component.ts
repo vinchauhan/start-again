@@ -29,10 +29,10 @@ export class PoolCodeGridComponent implements OnInit, AfterViewInit {
    }
 
   ngOnInit() {
-    console.log('startDateDow', this.startDateDow);
+    // console.log('startDateDow', this.startDateDow);
     this.padNumbers = Array(this.startDateDow - 1).fill(0).map((x, i) => i);
-    console.log('cabins passed to pool-code-grid' , this.cabins);
-    console.log('pcDateGridData passed to pool-code-grid-component is :', this.pcDateGridData);
+    // console.log('cabins passed to pool-code-grid' , this.cabins);
+    // console.log('pcDateGridData passed to pool-code-grid-component is :', this.pcDateGridData);
   }
 
   ngAfterViewInit(): void {

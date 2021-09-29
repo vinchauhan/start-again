@@ -1,12 +1,14 @@
-<div class="market-dropdown">
+<div class="market-dropdown form-group row">
+	<label class="label col-2">Market:</label>
     <div class="col-8 offset-1">
 		<ng-select class="filter-dropdown"
 				   [clearable]="true"
-				   [items]="marketList"
+				   [items]="marketList$ | async"
 				   [editableSearchTerm] ="true"
 				   bindLabel="text"
-				   [(ngModel)]="selectedMarketObj"
+				   bindValue="id"
 				   (change)="selectedMarket($event)"
+				   [virtualScroll]="true"
 		>
 		</ng-select>
 	</div>

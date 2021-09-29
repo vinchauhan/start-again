@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Title} from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,13 +23,13 @@ export class AppComponent implements OnInit {
         { id: 4, name: 'Audi' },
     ];
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   clickOnTab(value) {
-    
+    this.router.navigate(['/'+value])
   }
 }

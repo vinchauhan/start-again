@@ -23,23 +23,23 @@
            bindValue="id"
            [(ngModel)]="selectedCar">
     </ng-select> -->
-    <app-control-panel></app-control-panel>
+    
     <ul class="nav nav-tabs tabs-main-module" role="tablist">
-      <!-- <li class="nav-item">
-        <a class="nav-link"  [ngClass]="{'active': isForecast}" data-toggle="tab" routerLink="forecast"
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" routerLink="forecast"
            role="tab" aria-controls="forecast" aria-selected="false"
-           (click)='clickOnTab("Forecast")'>Forecast</a>
+           href="/forecast">Forecast</a>
       </li>
-      <li class="nav-item"  *ngIf="showOptimization">
-        <a class="nav-link" [ngClass]="{'active': isOptimization}" data-toggle="tab" routerLink="optimization"
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" routerLink="optimization"
            role="tab" aria-controls="optimization" aria-selected="false"
-           (click)='clickOnTab("Optimization")'>Optimization</a>
-      </li> -->
+           href="/optimization">Optimization</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link"
            data-toggle="tab" routerLink="poolcode"
            role="tab" aria-controls="poolCode" aria-selected="false"
-           (click)='clickOnTab("Pool Codes")'>Pool Codes</a>
+           href="/poolcodes">Pool Codes</a>
       </li>
     </ul>
     <div class="notification-alert">
