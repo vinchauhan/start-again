@@ -12,8 +12,7 @@ import { MarketsState } from '../../state/markets-state';
 export class MarketDropdownComponent implements OnInit {
 
   disabled = true;
-  @Select (MarketsState.getMarketDropdownList) 
-  marketList$: MarketDropdownModel[];
+  @Select (MarketsState.getMarketDropdownList) marketList$
   selectedMarketObj = {'hello':'world'};
 
   constructor(private store: Store) {
@@ -29,7 +28,7 @@ export class MarketDropdownComponent implements OnInit {
   }
 
   selectedMarket(event: any) {
-   
+   console.log(event)
   }
 
 }
