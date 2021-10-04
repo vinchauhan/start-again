@@ -6,6 +6,7 @@
 
 /* Localhost */
 const apiCM = 'http://localhost:8080/cm/';
+const apiPLC = 'http://localhost:8080/plc/'
 
 // const apiCM = 'http://rmappt22.qcorpaa.aa.com:9082/cm/';
 
@@ -14,6 +15,7 @@ export const environment = {
   production: false,
   allMarkets: apiCM + 'all-markets',
   userMarkets: apiCM + 'user-markets',
+  poolCodes: apiPLC + 'holiday-poolcodes'
   
 };
 

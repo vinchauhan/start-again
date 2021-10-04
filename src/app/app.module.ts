@@ -22,7 +22,6 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
     FormsModule,
     AppRoutingModule,
     NgSelectModule,
-    NgbModule,
     HttpClientModule,
     NgxsModule.forRoot([MarketsState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
