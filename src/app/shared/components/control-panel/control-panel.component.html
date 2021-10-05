@@ -1,6 +1,13 @@
 <div class="control-panel">
     <div class="market-dropdown">
         <app-market-dropdown></app-market-dropdown>
-        <app-date-picker></app-date-picker>
+    </div>
+    <div class="box">
+        <h3 class="heading" data-toggle="collapse" data-target="#filters-content"
+        aria-expanded="true" aria-controls="filters-content">Filters</h3>
+        <div id="filters-content" class="box-content date-time collapse show">
+            <h3>Date and Time</h3>
+            <app-date-picker></app-date-picker>
+        </div>
     </div>
 </div>

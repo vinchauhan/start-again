@@ -11,6 +11,7 @@ import {MarketsState} from './shared/state/markets-state';
 import {SharedModule} from './shared/shared.module';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
     HttpClientModule,
     NgxsModule.forRoot([MarketsState], {developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

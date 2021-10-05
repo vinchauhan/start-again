@@ -1,4 +1,32 @@
-<div class="date-selector">
-    <input type="text" value = "startDate" ngbDatepicker #d="ngbDatepicker"/>
-    <button (click)="d.toggle()">Toggle</button>
+<div class="row input-group">
+    <div class="col">
+        <div class="date-group">
+            <div class="date-selector">
+                <input type="text" 
+                       name="startDateInput"
+                       class="form-control date-img"
+                       [minDate]="{year: 2021, month: 10, day: 5}"
+                       [maxDate]="{year: 2024, month: 10, day: 5}"
+                       [(ngModel)]='startDateInput'
+                       ngbDatepicker #dateStart="ngbDatepicker"
+                       (click)='dateStart.toggle()'
+                       />
+            </div>
+            <span>to</span>
+            <div class="date-selector">
+                <input type="text" 
+                       name="endDateInput"
+                       class="form-control date-img"
+                       [(ngModel)]='endDateInput'
+                       [minDate]="{year: 2021, month: 10, day: 5}"
+                       [maxDate]="{year: 2024, month: 10, day: 5}"
+                       ngbDatepicker #dateEnd="ngbDatepicker"
+                       (click)='dateEnd.toggle()'
+                       />
+            </div>
+        </div>
+        <div>
+            {{startDateInput | json}} | {{endDateInput | json}}
+        </div>
+    </div>
 </div>

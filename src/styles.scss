@@ -177,6 +177,15 @@
   text-transform: capitalize;
 }
 
+.input-group {
+  margin-bottom: 5px;
+}
+
+.date-img {
+  background: url(/assets/images/calendar-icon.svg) center right no-repeat;
+  padding-right: 20px !important
+}
+
 /* ng-select them */
 // @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "~@ng-select/ng-select/themes/material.theme.css";

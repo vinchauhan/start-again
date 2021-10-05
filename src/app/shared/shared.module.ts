@@ -6,6 +6,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { NgbDate, NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -18,13 +19,15 @@ import { NgbDate, NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     exports: [
         ControlPanelComponent,
         DatePickerComponent,
-        NgbModule
+        NgbModule,
+        FontAwesomeModule
     ],
     imports: [
       CommonModule,
       NgSelectModule,
       FormsModule,
-      NgbModule
+      NgbModule,
+      FontAwesomeModule
     ]
 })
 export class SharedModule { }
