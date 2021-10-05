@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
 import { patch } from '@ngxs/store/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { EndDateAction } from '../actions/enddate-action';
 import { MarketActions } from '../actions/market-action';
-import { StartEndDateAction } from '../actions/startend-date-action';
+import { StartDateAction } from '../actions/startdate-action';
 import { AllMarkets } from '../models/all-markets';
 import { DatePickerInput } from '../models/datepicker-input';
 import { MarketDropdownModel } from '../models/market-dropdown';
@@ -15,8 +17,8 @@ export class MarketStateModel {
   allmarkets: AllMarkets;
   selectedMarket: OriginDestination;
   marketListDropdown: MarketDropdownModel[];
-  startDateInput: DatePickerInput;
-  endDateInput: DatePickerInput
+  startDateInput?: DatePickerInput;
+  endDateInput?: DatePickerInput
 }
 
 @State<MarketStateModel>({
@@ -25,8 +27,8 @@ export class MarketStateModel {
     allmarkets: { alpha: [], directional: [], spokes: []},
     selectedMarket: {origin: '', destination: ''},
     marketListDropdown: [{id: 'PHX|DFW', text: 'PHXDFW'}],
-    startDateInput: {year: 2020, month: 1, day: 1},
-    endDateInput: {year: 2020, month: 1, day: 1}
+    startDateInput: getDefaultStartDate(),
+    endDateInput: getDefaultEndDateInput()
   }
 })
 @Injectable()
@@ -68,13 +70,23 @@ export class MarketsState {
     //   console.log('Received StartEndDateAction')
     // }
 
-    @Action(StartEndDateAction)
-    loadDefaultDateRange({getState, setState}: StateContext<MarketStateModel>, {startDate, endDate}: StartEndDateAction) {
+    @Action(StartDateAction)
+    updateStartDate({getState, setState}: StateContext<MarketStateModel>, {startDate}: StartDateAction) {
       console.log('Received StartEndDateAction', startDate)
       const state = getState;
       setState(
         patch({
-        startDateInput: startDate,
+        startDateInput: startDate
+      })
+      );
+    }
+
+    @Action(EndDateAction)
+    updateEndDate({getState, setState}: StateContext<MarketStateModel>, {endDate}: EndDateAction) {
+      console.log('Received StartEndDateAction', endDate)
+      const state = getState;
+      setState(
+        patch({
         endDateInput: endDate
       })
       );
@@ -131,3 +143,17 @@ export class MarketsState {
       }));
     }
 }
+
+
+function getDefaultStartDate(): DatePickerInput {
+  const today: Date = new Date();
+  console.log('initialize startDate in store')
+  return {year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate()};
+}
+
+function getDefaultEndDateInput(): DatePickerInput {
+  const today: Date = new Date();
+  console.log('initialize endDate in the store to')
+  return {year: today.getFullYear(), month: today.getMonth() + 2, day: today.getDate()};
+}
+
