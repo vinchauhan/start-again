@@ -12,13 +12,17 @@ import { DatePickerInput } from '../models/datepicker-input';
 import { MarketDropdownModel } from '../models/market-dropdown';
 import { OriginDestination } from '../models/origin-destination';
 import { MarketService } from '../services/market.service';
+import {CabinsActions} from '../actions/cabins-actions';
+import {CabinService} from '../services/cabin.service';
+import {CabinsStateModel} from '../models/cabins';
 
 export class MarketStateModel {
   allmarkets: AllMarkets;
-  selectedMarket: OriginDestination;
+  selectedMarket?: OriginDestination;
   marketListDropdown?: MarketDropdownModel[];
+  cabins?: CabinsStateModel[];
   startDateInput?: DatePickerInput;
-  endDateInput?: DatePickerInput
+  endDateInput?: DatePickerInput;
 }
 // {id: 'PHX|DFW', text: 'PHXDFW'} - marketDropdownlist sample
 @State<MarketStateModel>({
@@ -26,6 +30,7 @@ export class MarketStateModel {
   defaults: {
     allmarkets: { alpha: [], directional: [], spokes: []},
     selectedMarket: {origin: '', destination: ''},
+    cabins: [],
     marketListDropdown: [],
     startDateInput: getDefaultStartDate(),
     endDateInput: getDefaultEndDateInput()
@@ -34,7 +39,9 @@ export class MarketStateModel {
 @Injectable()
 export class MarketsState {
 
-  constructor(private store: Store, private marketService: MarketService) {}
+constructor(private store: Store,
+            private marketService: MarketService,
+            private cabinService: CabinService) {}
 
     @Selector()
     static getAllMarkets(state: MarketStateModel) {
@@ -47,22 +54,22 @@ export class MarketsState {
     }
 
     @Selector()
-    static getMarketDropdownList(state: MarketStateModel) : MarketDropdownModel[] {
+    static getMarketDropdownList(state: MarketStateModel): MarketDropdownModel[] {
       return state.marketListDropdown;
     }
 
     // Select startInputDate
     @Selector()
     static getStartDateInput(state: MarketStateModel): DatePickerInput {
-      return state.startDateInput
+      return state.startDateInput;
     }
 
     // Select startInputDate
     @Selector()
     static getEndDateInput(state: MarketStateModel): DatePickerInput {
-      return state.endDateInput
+      return state.endDateInput;
     }
-    
+
     // Action Listeners
 
     // @Action(StartEndDateAction)
@@ -72,7 +79,7 @@ export class MarketsState {
 
     @Action(StartDateAction)
     updateStartDate({getState, setState}: StateContext<MarketStateModel>, {startDate}: StartDateAction) {
-      console.log('Received StartEndDateAction', startDate)
+      console.log('Received StartEndDateAction', startDate);
       const state = getState;
       setState(
         patch({
@@ -83,8 +90,7 @@ export class MarketsState {
 
     @Action(EndDateAction)
     updateEndDate({getState, setState}: StateContext<MarketStateModel>, {endDate}: EndDateAction) {
-      console.log('Received StartEndDateAction', endDate)
-      const state = getState;
+      console.log('Received StartEndDateAction', endDate);
       setState(
         patch({
         endDateInput: endDate
@@ -92,13 +98,25 @@ export class MarketsState {
       );
     }
 
+    @Action(CabinsActions)
+    getCabins(ctx: StateContext<MarketStateModel>, { market }: CabinsActions) {
+      console.log('CabinAction triggered');
+      return this.cabinService.getCabinsForMarket(market).pipe(
+        tap((cabins) => {
+          ctx.setState(
+            patch({ cabins })
+          );
+        })
+      );
+    }
+
     @Action(MarketActions)
     getMarkets({getState, setState}: StateContext<MarketStateModel>) {
-      console.log("Action MarketAction listened")
+      console.log('Action MarketAction listened');
       const userMarkets$ = this.marketService.getAllMarketsByUser();
       const allMarkets$ = this.marketService.getMarkets();
 
-      return forkJoin([userMarkets$, allMarkets$]).pipe(tap((results)=> {
+      return forkJoin([userMarkets$, allMarkets$]).pipe(tap((results) => {
         const userMarkets = results[0];
         const allMarkets = results[1];
         let firstHalfMarketList = [];
@@ -112,19 +130,19 @@ export class MarketsState {
           firstHalfMarketList = allMarkets.directional;
         }
           // Added a seperator to be shown as a divider between market list
-          firstHalfMarketList.push({'origin': 'x',
-          'destination': 'x'});
+        firstHalfMarketList.push({origin: 'x',
+          destination: 'x'});
 
-          for (const market of allMarketsList) {
+        for (const market of allMarketsList) {
             if (userMarkets.directional.findIndex(mkt => mkt.origin === market.origin &&
               mkt.destination === market.destination) < 0) {
               firstHalfMarketList.push(market);
             }
-          }
+        }
           // console.log(firstHalfMarketList);
 
           // Build the market object to be used by the MarketDropdown component
-          const marketListDropdown =  firstHalfMarketList.map(i => {
+        const marketListDropdown =  firstHalfMarketList.map(i => {
             if (i.origin === 'x') {
               const text2 = '='.repeat(14);
               return {id: i.origin + '|' + i.destination, text: text2, disabled: true};
@@ -134,12 +152,12 @@ export class MarketsState {
           });
 
         const state = getState();
-                                setState({
-                                  ...state,
-                                  allmarkets: allMarkets,
-                                  selectedMarket: market,
-                                  marketListDropdown: marketListDropdown
-                              });
+        setState({
+                  ...state,
+                  allmarkets: allMarkets,
+                  selectedMarket: market,
+                  marketListDropdown
+                });
       }));
     }
 }
@@ -147,13 +165,13 @@ export class MarketsState {
 
 function getDefaultStartDate(): DatePickerInput {
   const today: Date = new Date();
-  console.log('initialize startDate in store')
+  console.log('initialize startDate in store');
   return {year: today.getFullYear(), month: today.getMonth() + 1, day: today.getDate()};
 }
 
 function getDefaultEndDateInput(): DatePickerInput {
   const today: Date = new Date();
-  console.log('initialize endDate in the store to')
+  console.log('initialize endDate in the store to');
   return {year: today.getFullYear(), month: today.getMonth() + 2, day: today.getDate()};
 }
 

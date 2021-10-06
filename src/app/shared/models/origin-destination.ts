@@ -1,4 +1,4 @@
 export interface OriginDestination {
-    origin: string,
-    destination: string
+    origin: string;
+    destination: string;
 }

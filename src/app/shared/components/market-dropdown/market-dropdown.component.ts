@@ -17,7 +17,6 @@ export class MarketDropdownComponent implements OnInit {
   @Select (MarketsState.getMarketDropdownList) marketList$: Observable<MarketDropdownModel>
   selectedMarketObj;
   constructor(private store: Store) {
-  
   }
 
   ngOnInit(): void {
@@ -27,10 +26,11 @@ export class MarketDropdownComponent implements OnInit {
     //   this.selectedMarketObj = market[0]
     // })
     // console.log('loading market dropdown result from store')
-    const result: MarketDropdownModel[] = this.store.selectSnapshot<MarketDropdownModel[]>(MarketsState.getMarketDropdownList)
+    const result: MarketDropdownModel[] = this.store.selectSnapshot<MarketDropdownModel[]>(MarketsState.getMarketDropdownList);
     // console.log(result)
+    // tslint:disable-next-line:triple-equals
     if (result.length == 0) {
-      console.log('selecting market')
+      console.log('selecting market');
       this.store.dispatch(new MarketActions());
       // this.marketList$.pipe(take(1)).subscribe((market) => {
       //   console.log('selecting market')

@@ -15,8 +15,8 @@ export const environment = {
   production: false,
   allMarkets: apiCM + 'all-markets',
   userMarkets: apiCM + 'user-markets',
-  poolCodes: apiPLC + 'holiday-poolcodes'
-  
+  poolCodes: apiPLC + 'holiday-poolcodes',
+  cabins: apiCM + 'cabins'
 };
 
 /*
