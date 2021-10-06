@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { NgbDate, NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TimePickerComponent } from './components/time-picker/time-picker.component';
 
 
 
@@ -14,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     declarations: [
       MarketDropdownComponent, 
       ControlPanelComponent, 
-      DatePickerComponent
+      DatePickerComponent, TimePickerComponent
     ],
     exports: [
         ControlPanelComponent,

@@ -16,17 +16,17 @@ import { MarketService } from '../services/market.service';
 export class MarketStateModel {
   allmarkets: AllMarkets;
   selectedMarket: OriginDestination;
-  marketListDropdown: MarketDropdownModel[];
+  marketListDropdown?: MarketDropdownModel[];
   startDateInput?: DatePickerInput;
   endDateInput?: DatePickerInput
 }
-
+// {id: 'PHX|DFW', text: 'PHXDFW'} - marketDropdownlist sample
 @State<MarketStateModel>({
   name: 'AppState',
   defaults: {
     allmarkets: { alpha: [], directional: [], spokes: []},
     selectedMarket: {origin: '', destination: ''},
-    marketListDropdown: [{id: 'PHX|DFW', text: 'PHXDFW'}],
+    marketListDropdown: [],
     startDateInput: getDefaultStartDate(),
     endDateInput: getDefaultEndDateInput()
   }
@@ -62,7 +62,7 @@ export class MarketsState {
     static getEndDateInput(state: MarketStateModel): DatePickerInput {
       return state.endDateInput
     }
-
+    
     // Action Listeners
 
     // @Action(StartEndDateAction)

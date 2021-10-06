@@ -15,9 +15,6 @@ export class ControlPanelComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('control-panel is initialized');
-    if (!this.marketList) {
-      this.store.dispatch(new MarketActions());
-    }
   }
 
 }

@@ -1,0 +1,17 @@
+<div class="row dropdown">
+    <div class="col">
+        <div class="time-group">
+            <input type="text" placeholder="HH:MM" [(ngModel)]="startTime" (ngModelChange)="onSelectTime('input')">
+            <select class="form-control form-control-sm" [(ngModel)]="dropdownStartTime" (ngModelChange)="onSelectTime('select')">
+                <option *ngFor='let time of timeInterval' [ngValue]='time._24Hour'>{{ time._24Hour }}</option>
+            </select>
+        </div>
+        <span>to</span>
+        <div>
+            <input type="text" placeholder="HH:MM" [(ngModel)]="startTime" (ngModelChange)="onSelectTime('input')">
+            <select class="form-control form-control-sm" [(ngModel)]="dropdownStartTime" (ngModelChange)="onSelectTime('select')">
+                <option *ngFor='let time of timeInterval' [ngValue]='time._24Hour'>{{ time._24Hour }}</option>
+            </select>
+        </div>
+    </div>
+</div>
