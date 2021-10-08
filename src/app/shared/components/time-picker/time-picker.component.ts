@@ -45,6 +45,8 @@ export class TimePickerComponent implements OnInit {
   }
 
   onSelectTime(type) {
-
+    if (type === 'select') {
+      this.startTime = this.dropdownStartTime;
+    }
   }
 }

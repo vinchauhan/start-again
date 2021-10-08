@@ -7,6 +7,7 @@ import {CabinsActions} from '../../actions/cabins-actions';
 import {Observable} from 'rxjs';
 import {OriginDestination} from '../../models/origin-destination';
 import {MarketDropdownModel} from '../../models/market-dropdown';
+import {CabinsStateModel} from '../../models/cabins';
 
 @Component({
   selector: 'app-control-panel',
@@ -16,6 +17,17 @@ import {MarketDropdownModel} from '../../models/market-dropdown';
 export class ControlPanelComponent implements OnInit {
   marketList;
   @Select (MarketsState.getSelectedMarket) selectedMarket$: Observable<OriginDestination>;
+  @Select (MarketsState.getCabins) cabins$: Observable<CabinsStateModel[]>;
+  cabinData: any;
+  flows = [
+            {key: 'B', value: 'Both', isSelected: true},
+            {key: 'L', value: 'Local', isSelected: true},
+            {key: 'F', value: 'Flow', isSelected: true}
+          ];
+  posFilter = [
+                {key: 1, value: 'Domestic', isSelected: true},
+                {key: 2, value: 'International', isSelected: true}
+              ];
   constructor(private marketService: MarketService, private store: Store ) { }
 
   ngOnInit(): void {
@@ -35,6 +47,18 @@ export class ControlPanelComponent implements OnInit {
   }
 
   openTimeBandModal() {
+
+  }
+
+  cabinsFun() {
+
+  }
+
+  flowsFun(flow: { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string }) {
+
+  }
+
+  posFun(pos: {isSelected: boolean; value: string; key: number} | {isSelected: boolean; value: string; key: number}) {
 
   }
 }

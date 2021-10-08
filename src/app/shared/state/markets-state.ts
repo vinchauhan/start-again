@@ -70,6 +70,11 @@ constructor(private store: Store,
       return state.endDateInput;
     }
 
+    @Selector()
+    static getCabins(state: MarketStateModel): CabinsStateModel[] {
+      return state.cabins;
+    }
+
     // Action Listeners
 
     // @Action(StartEndDateAction)

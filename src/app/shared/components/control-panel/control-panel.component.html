@@ -7,54 +7,60 @@
         aria-expanded="true" aria-controls="filters-content">Filters</h3>
         <div class="filters-content" class="box-content date-time collapse show">
             <h3>Date and Time</h3>
-            <app-date-picker></app-date-picker>
-        </div>
-        <div id="filters-content" class="box-content date-time collapse show">
-            <app-time-picker></app-time-picker>
-        </div>
-        <div class="row">
-          <button class="btn btn-primary btn-sm btn-custom btn-noClick col-5" (click)="resetDates()">Today
-          </button>
-          <span class="col-2"></span>
-          <button class="btn btn-primary btn-sm btn-custom btn-noClick col-5"
-                  (click)="openTimeBandModal()">Time Band
-          </button>
-        </div>
-      <div class="row">
-        <div class="col col-4 cabin">
-          <h3>Cabin</h3>
-<!--          <div *ngFor='let cabin of cabins; let i = index'>-->
-<!--            <label for='cabin{{ i+ 1}}' placement="right" class="text-font-size padding-left-5"-->
-<!--                   ngbTooltip="{{cabin.value}}">-->
-<!--              <input type="radio" name="cabinsOptions" id="cabin{{ i+ 1}}" value="{{cabin.key}}"-->
-<!--                     (change)='cabinsFun()' [(ngModel)]="cabinData">-->
-<!--              {{cabin.key}}</label>-->
-<!--          </div>-->
-        </div>
-        <!-- End Cabin -->
-        <span class="col col5"></span>
-        <div class="col flows">
-          <h3>Flows</h3>
-<!--            <span class="flows-layout" *ngFor="let flow of flowsFilter">-->
-<!--							<input class="form-check-input" type="radio" name="flowGroup" id="flows_{{flow.key}}"-->
-<!--                     (change)='flowsFun(flow)' [value]="flow.isSelected" [checked]="flow.key === 'B'" />-->
-<!--							<label class="form-check-label" for="flows_{{flow.key}}">-->
-<!--								{{ flow.value }}-->
-<!--							</label>-->
-<!--						</span>-->
+            <div class="date-picker">
+              <app-date-picker></app-date-picker>
+            </div>
+            <div class="time-range">
+              <div class="pt-1 pb-1">
+                <app-time-picker></app-time-picker>
+              </div>
+              <div class="row">
+                <button class="btn btn-primary btn-sm btn-custom btn-noClick col-5" (click)="resetDates()">Today
+                </button>
+                <span class="col-2"></span>
+                <button class="btn btn-primary btn-sm btn-custom btn-noClick col-5"
+                        (click)="openTimeBandModal()">Time Band
+                </button>
+              </div>
+            </div>
 
-          <div class="padding-top-10">
-            <h3>PoS</h3>
-<!--            <div class="form-check" *ngFor='let pos of posFilter'>-->
-<!--              <input class="form-check-input" type="checkbox" value="domestic" id="pos_{{pos.key}}"-->
-<!--                     (change)='posFun(pos)' [(ngModel)]='pos.isSelected'>-->
-<!--              <label class="form-check-label" for="pos_{{pos.key}}">{{ pos.value }}</label>-->
-<!--            </div>-->
-          </div>
-        </div>
-        <!-- End Flows -->
+            <div class="row cabin-flows">
+              <div class="col col-4 cabin">
+                <h3>Cabin</h3>
+                <div *ngFor='let cabin of cabins$ | async; let i = index'>
+                  <label for='cabin{{ i+ 1}}' placement="right" class="text-font-size padding-left-5"
+                         ngbTooltip="{{cabin.value}}">
+                    <input type="radio" name="cabinsOptions" id="cabin{{ i+ 1}}" value="{{cabin.key}}"
+                           (change)='cabinsFun()' [(ngModel)]="cabinData">
+                    {{cabin.key}}</label>
+                </div>
+              </div>
+              <div class="col"></div>
+              <!-- End Cabin -->
+              <div class="col">
+                <h3>Flows</h3>
+                <div *ngFor="let flow of flows">
+                    <input type="radio" name="flowGroup" id="flows_{{flow.key}}"
+                           (change)='flowsFun(flow)' [value]="flow.isSelected" [checked]="flow.key === 'B'" />
+                    <label for="flows_{{flow.key}}">
+                      {{ flow.value }}
+                    </label>
+                </div>
+              </div>
+              <div class="col"></div>
+              <div class="padding-top-10">
+                <h3>PoS</h3>
+                <div class="form-check" *ngFor='let pos of posFilter'>
+                  <input class="form-check-input" type="checkbox" value="domestic" id="pos_{{pos.key}}"
+                         (change)='posFun(pos)' [(ngModel)]='pos.isSelected'>
+                  <label class="form-check-label" for="pos_{{pos.key}}">{{ pos.value }}</label>
+                </div>
+              </div>
 
-        <!-- End Pos -->
-      </div>
+              <!-- End Flows -->
+
+              <!-- End Pos -->
+            </div>
+        </div>
     </div>
 </div>

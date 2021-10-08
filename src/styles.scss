@@ -186,6 +186,28 @@
   padding-right: 20px !important
 }
 
+.input-group input,
+.input-group select {
+  border-radius: 2px !important;
+  font-size: 0.75em;
+  height: initial !important;
+  padding: 0.2rem !important;
+  text-align: left
+}
+
+.input-group label,
+.input-group .input-group-addon {
+  background: transparent;
+  border: 0;
+  color: #000;
+  font-size: 0.8em;
+  padding: 4px 5px 0
+}
+
+.text-center {
+  text-align: center !important;
+}
+
 /* ng-select them */
 // @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "~@ng-select/ng-select/themes/material.theme.css";

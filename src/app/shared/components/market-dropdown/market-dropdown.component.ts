@@ -41,7 +41,7 @@ export class MarketDropdownComponent implements OnInit {
 
   selectedMarket(event: any) {
    this.selectedMarketObj = event;
-   console.log(event)
+   console.log(event);
   }
 
 }

@@ -41,7 +41,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    
+
   }
 
   onStartDateSelect(event) {
@@ -55,6 +55,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     const newEndDate: DatePickerInput = event;
     this.store.dispatch(new EndDateAction(newEndDate))
   }
-  
 
+
+  resetDates() {
+
+  }
+
+  openTimeBandModal() {
+
+  }
 }
