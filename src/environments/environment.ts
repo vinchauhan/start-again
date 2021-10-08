@@ -5,10 +5,11 @@
 
 
 /* Localhost */
-const apiCM = 'http://localhost:8080/cm/';
-const apiPLC = 'http://localhost:8080/plc/'
+// const apiCM = 'http://localhost:8080/cm/';
+// const apiPLC = 'http://localhost:8080/plc/'
 
-// const apiCM = 'http://rmappt22.qcorpaa.aa.com:9082/cm/';
+const apiCM = 'http://rmappt23.qcorpaa.aa.com:9082/cm/';
+const apiPLC = 'http://rmappt23.qcorpaa.aa.com:9088/plc/';
 
 
 export const environment = {

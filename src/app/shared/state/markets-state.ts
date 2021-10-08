@@ -21,6 +21,7 @@ export class MarketStateModel {
   selectedMarket?: OriginDestination;
   marketListDropdown?: MarketDropdownModel[];
   cabins?: CabinsStateModel[];
+  selectedCabin?: CabinsStateModel;
   startDateInput?: DatePickerInput;
   endDateInput?: DatePickerInput;
 }
@@ -75,6 +76,11 @@ constructor(private store: Store,
       return state.cabins;
     }
 
+    @Selector()
+    static getSelectedCabin(state: MarketStateModel): CabinsStateModel {
+      return state.selectedCabin;
+    }
+
     // Action Listeners
 
     // @Action(StartEndDateAction)
@@ -106,10 +112,21 @@ constructor(private store: Store,
     @Action(CabinsActions)
     getCabins(ctx: StateContext<MarketStateModel>, { market }: CabinsActions) {
       console.log('CabinAction triggered');
+      const state = ctx.getState;
       return this.cabinService.getCabinsForMarket(market).pipe(
         tap((cabins) => {
           ctx.setState(
-            patch({ cabins })
+            // { ...state, 
+            //   cabins: cabins, 
+            //   selectedCabin: cabins[0]  
+            // } 
+              
+                
+            
+            patch({ 
+              cabins: cabins, 
+              selectedCabin: cabins[0] 
+            })
           );
         })
       );
@@ -139,7 +156,7 @@ constructor(private store: Store,
           destination: 'x'});
 
         for (const market of allMarketsList) {
-            if (userMarkets.directional.findIndex(mkt => mkt.origin === market.origin &&
+            if (userMarkets.directional.length > 0 && userMarkets.directional.findIndex(mkt => mkt.origin === market.origin &&
               mkt.destination === market.destination) < 0) {
               firstHalfMarketList.push(market);
             }

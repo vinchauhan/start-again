@@ -18,7 +18,8 @@ export class ControlPanelComponent implements OnInit {
   marketList;
   @Select (MarketsState.getSelectedMarket) selectedMarket$: Observable<OriginDestination>;
   @Select (MarketsState.getCabins) cabins$: Observable<CabinsStateModel[]>;
-  cabinData: any;
+  @Select (MarketsState.getSelectedCabin) cabinData$: Observable<CabinsStateModel>;
+  cabinData: any = "C"
   flows = [
             {key: 'B', value: 'Both', isSelected: true},
             {key: 'L', value: 'Local', isSelected: true},
@@ -37,7 +38,7 @@ export class ControlPanelComponent implements OnInit {
     this.selectedMarket$.subscribe((selectedMarket) => {
       // Only dispatch action when selected market exists
       if ( selectedMarket.origin !== '' && selectedMarket.destination !== '') {
-        this.store.dispatch(new CabinsActions(selectedMarket.origin + selectedMarket.destination));
+        this.store.dispatch(new CabinsActions(selectedMarket.origin + '|' + selectedMarket.destination));
       }
     });
   }

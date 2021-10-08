@@ -6,7 +6,7 @@
 				   [items]="marketList$ | async"
 				   [editableSearchTerm] ="true"
 				   bindLabel="text"
-				   [(ngModel)]="selectedMarketObj"
+				   [ngModel]="(marketList$ | async)[0]"
 				   (change)="selectedMarket($event)"
 				   [virtualScroll]="true"
 		>

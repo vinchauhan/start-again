@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { CabinsActions } from '../../actions/cabins-actions';
 import {MarketActions} from '../../actions/market-action';
+import { CabinsStateModel } from '../../models/cabins';
 import { MarketDropdownModel } from '../../models/market-dropdown';
 import { MarketsState } from '../../state/markets-state';
 
@@ -15,7 +17,6 @@ export class MarketDropdownComponent implements OnInit {
 
   disabled = true;
   @Select (MarketsState.getMarketDropdownList) marketList$: Observable<MarketDropdownModel>
-  selectedMarketObj;
   constructor(private store: Store) {
   }
 
@@ -39,9 +40,13 @@ export class MarketDropdownComponent implements OnInit {
     }
   }
 
-  selectedMarket(event: any) {
-   this.selectedMarketObj = event;
-   console.log(event);
+  selectedMarket(event: MarketDropdownModel) {
+    // When market is changed need to load new cabins for the market is the always.
+    // Dispatch an action the store to load cabins for the new market
+    if(event) {
+      console.log(event)
+      this.store.dispatch(new CabinsActions(event.id));
+    }
   }
 
 }
