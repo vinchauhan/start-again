@@ -421,7 +421,7 @@ export class ForecastBarsComponent implements OnInit {
 					}
 					const x1 = x0 + rectWidth;
 
-					return k[0] <= x0 && k[1] >= x1;
+					// return k[0] <= x0 && k[1] >= x1;
 				});
 
 				// this.onSelectBrush(oType, selectedArea);
@@ -435,6 +435,7 @@ export class ForecastBarsComponent implements OnInit {
 				.attr('x', (d) => {
 					// @ts-ignore
 					if (oType === 'forecast') {
+            // @ts-ignore
 						return xScale(formatDate(d.data, 'MM/dd', 'en-US'));
 					}
 					// return xScale(d.barLabel);
