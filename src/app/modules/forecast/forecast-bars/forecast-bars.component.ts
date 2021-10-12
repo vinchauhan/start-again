@@ -72,8 +72,9 @@ export class ForecastBarsComponent implements OnInit {
                          .attr('width', width - margin.left - margin.right)
     
     // Define the scale for x and y values after attaching the svg
-    const x_domain = d3.range(jsonData.length).map((d) => d+'');
-    const x = d3.scaleBand()
+    // const x_domain = d3.range(jsonData.length).map((d) => d+'');
+    const x_domain = d3.range(jsonData.length);
+    const x = d3.scaleBand<number>()
                 .domain(x_domain)
                 .range([margin.left, width - margin.right])
                 .padding(0.1)
@@ -87,19 +88,20 @@ export class ForecastBarsComponent implements OnInit {
        .selectAll('rect')
        .data(jsonData)
        .join('rect')
-       .attr('x', (d, i) => x(i+''))
+       .attr('x', (d, i) => x(i))
        .attr('y', (d) => y(d.demand))
        .attr('height', (d) => y(0) - y(d.demand))
        .attr('width', width / jsonData.length - margin.left - margin.right)
     
     function xAxis(g) {
-        g.attr('transform', `translate(0, ${height - margin.bottom})`)
+        g.attr('transform', `translate(0, ${height - margin.bottom - margin.top})`)
         g.call(d3.axisBottom(x).tickFormat(i => jsonData[i].data))
         g.attr('font-size', '20px')
     }
     
     function yAxis(g) {
       g.attr('transform', `translate(${margin.left}, 0)`)
+      // @ts-ignore
       g.call(d3.axisLeft(y).ticks(null, jsonData.format))
       g.attr('font-size', '10px')
     }
