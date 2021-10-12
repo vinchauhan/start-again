@@ -5,6 +5,8 @@ import { tickFormat } from 'd3';
 import * as _ from 'lodash';
 import { CommonDataService } from 'src/app/shared/services/common-data.service';
 import { environment } from 'src/environments/environment';
+import {BehaviorSubject} from 'rxjs';
+import {ForecastResponse} from '../models/forecast-response';
 
 @Component({
   selector: 'app-forecast-bars',
@@ -13,20 +15,19 @@ import { environment } from 'src/environments/environment';
 })
 export class ForecastBarsComponent implements OnInit {
 
-  @Input()
-  forecastDemandData;
+  @Input() forecastDemandData$: BehaviorSubject<ForecastResponse[]>;
   @Input() oType;
   daysOfWeek = _.cloneDeep(this.commonDataService.daysOfWeek);
 	dayObject = _.cloneDeep(this.commonDataService.dayObject);
   showStatus = environment.showStatus;
   scope = 'day';
-  selectedCompare = 'customYearsAgo'
+  selectedCompare = 'customYearsAgo';
   helios = {
     /**
 	 * Colors for the Graphs
 	 */
 	  defTotalStart: '#00467F',
-	  defTotalEnd:'#0078D2',
+	  defTotalEnd: '#0078D2',
 	  selTotalStart: '#9A1C1E',
 	  selTotalEnd: '#9A1C1E',
 	  defRemainStart: '#0078D2',
@@ -39,27 +40,40 @@ export class ForecastBarsComponent implements OnInit {
 	  selCompareEnd:   '#B1B1B1',
 	  defPure: '#C30019',
 	  selPure: '#CCCCCC',
-  }
+  };
   constructor(private commonDataService: CommonDataService) { }
 
   ngOnInit(): void {
     // this.renderGraph(this.forecastDemandData);
-    this.renderBars(this.forecastDemandData);
+    this.forecastDemandData$.subscribe((data) => {
+      this.renderBars(data);
+    });
   }
 
-  renderBars(jsonData: any[]) {
-    let container = d3.select('#cnt_forecast_bars');
-    let height = 200;
-    let width = 1200;
+  renderBars(jsonData: ForecastResponse[]) {
     const margin = {
       top: 10,
-      right:10,
+      right: 10,
       bottom: 20,
-      left:40
+      left: 40
+    };
+    // Remove existing svg when re-rendering
+    d3.select('svg').remove();
+    const container = d3.select('#cnt_forecast_bars');
+    // @ts-ignore
+    const box = container.node().getBoundingClientRect();
+    // Do not render the Graph if the width or height is lesser than 50 pixels
+    if (box.width < 50 || box.height < 50) {
+      return;
     }
+    let width = +box.width - margin.left - margin.right;
+    let height = +box.height - margin.top - margin.bottom;
+    // let height = 200;
+    // let width = 1200;
+
     let eachRectWidth;
     // let width, height : number;
-    if(this.oType === 'demand' && jsonData.length > 31) {
+    if (this.oType === 'demand' && jsonData.length > 31) {
       eachRectWidth = width / 30 - 1;
       width = eachRectWidth * jsonData.length + 10;
       height = height - 30;
@@ -68,19 +82,19 @@ export class ForecastBarsComponent implements OnInit {
     // create an svg under the container to draw the bars
     const svg = container.append('svg')
                          .attr('id', 'forecast_bars_svg')
-                         .attr('height', height - margin.top - margin.bottom)
-                         .attr('width', width - margin.left - margin.right)
-    
+                         .attr('height', height)
+                         .attr('width', width);
+
     // Define the scale for x and y values after attaching the svg
     // const x_domain = d3.range(jsonData.length).map((d) => d+'');
-    const x_domain = d3.range(jsonData.length);
+    const xDomain: number[] = d3.range(jsonData.length);
     const x = d3.scaleBand<number>()
-                .domain(x_domain)
+                .domain(xDomain)
                 .range([margin.left, width - margin.right])
-                .padding(0.1)
+                .padding(0.1);
     const y = d3.scaleLinear()
                 .domain([0, 100])
-                .range([height - margin.bottom, margin.top])
+                .range([height - margin.bottom, margin.top]);
 
     // Create the bars
     svg.append('g')
@@ -91,54 +105,49 @@ export class ForecastBarsComponent implements OnInit {
        .attr('x', (d, i) => x(i))
        .attr('y', (d) => y(d.demand))
        .attr('height', (d) => y(0) - y(d.demand))
-       .attr('width', width / jsonData.length - margin.left - margin.right)
-    
+       .attr('width', width / jsonData.length - margin.left - margin.right);
+
     function xAxis(g) {
-        g.attr('transform', `translate(0, ${height - margin.bottom - margin.top})`)
-        g.call(d3.axisBottom(x).tickFormat(i => jsonData[i].data))
-        g.attr('font-size', '20px')
+        g.attr('transform', `translate(0, ${height - margin.bottom})`);
+        g.call(d3.axisBottom(x).tickFormat(i => jsonData[i].data));
+        g.attr('font-size', '10px');
     }
-    
+
     function yAxis(g) {
-      g.attr('transform', `translate(${margin.left}, 0)`)
+      g.attr('transform', `translate(${margin.left}, 0)`);
       // @ts-ignore
-      g.call(d3.axisLeft(y).ticks(null, jsonData.format))
-      g.attr('font-size', '10px')
+      g.call(d3.axisLeft(y).ticks(null, jsonData.format));
+      g.attr('font-size', '10px');
     }
-    svg.append('g').call(yAxis)
-    svg.append('g').call(xAxis)
-    svg.node()
-
-    
-
+    svg.append('g').call(yAxis);
+    svg.append('g').call(xAxis);
+    svg.node();
   }
 
-  
-
   renderGraph(jsonData) {
-    console.log('renderGraph', jsonData)
+    console.log('renderGraph', jsonData);
     const oType = this.oType;
     d3.select('#wait_' + oType).remove();
-		d3.select('#svg_' + oType).remove();
-		d3.select('.tip_' + oType).remove();
-    let container = d3.select('#cnt_' + oType);
+    d3.select('#svg_' + oType).remove();
+    d3.select('.tip_' + oType).remove();
+    const container = d3.select('#cnt_' + oType);
     // let container = d3.select('#fcst_bars_container');
-    const scene = container.append('svg').attr('id', 'svg_' + oType)
+    const scene = container.append('svg').attr('id', 'svg_' + oType);
     const margin = {
       top: 10,
-      right:10,
+      right: 10,
       bottom: 20,
-      left:40
-    }
+      left: 40
+    };
     // @ts-ignore
     const box = container.node().getBoundingClientRect();
-    if(box.width < 50 || box.height < 50) {
+    if (box.width < 50 || box.height < 50) {
       return;
     }
     let width = +box.width - margin.left - margin.right;
     let height = +box.height - margin.top - margin.bottom;
     let eachRectWidth;
-    if(this.oType === 'demand' && jsonData.length > 31) {
+    if (this.oType === 'demand' && jsonData.length > 31) {
       eachRectWidth = width / 30 - 1;
       width = eachRectWidth * jsonData.length + 10;
       height = height - 30;
@@ -147,10 +156,10 @@ export class ForecastBarsComponent implements OnInit {
     // More logic for only 'demand' but not > 31
 
     // Determine the Comparison factor
-			let oCompare = '';
-      let selectedCompare = this.selectedCompare;
+			 let oCompare = '';
+    const selectedCompare = this.selectedCompare;
 			// @ts-ignore
-			if (selectedCompare === 'lastNight') {
+			 if (selectedCompare === 'lastNight') {
 				oCompare = 'lastNight';
 			} else {
 				// @ts-ignore
@@ -185,12 +194,12 @@ export class ForecastBarsComponent implements OnInit {
                          .attr('x2', '0%')
                          .attr('y1', '0%')
                          .attr('y2', '100%');
-                         defTotalGrad.append('stop')
+    defTotalGrad.append('stop')
                          .attr('class', 'start')
                          .attr('offset', '0%')
                          .attr('stop-color', this.helios.defTotalStart)
                          .attr('stop-opacity', 1);
-                       defTotalGrad.append('stop')
+    defTotalGrad.append('stop')
                          .attr('class', 'stop')
                          .attr('offset', '100%')
                          .attr('stop-color', this.helios.defTotalEnd)
@@ -202,76 +211,76 @@ export class ForecastBarsComponent implements OnInit {
       .attr('y1', '0%')
       .attr('y2', '100%');
 
-                      selTotalGrad.append('stop')
+    selTotalGrad.append('stop')
                         .attr('class', 'start')
                         .attr('offset', '0%')
                         .attr('stop-color', this.helios.selTotalStart)
                         .attr('stop-opacity', 1);
-                      selTotalGrad.append('stop')
+    selTotalGrad.append('stop')
     .attr('class', 'stop')
     .attr('offset', '100%')
     .attr('stop-color', this.helios.selTotalEnd)
     .attr('stop-opacity', 1);
-  const defRemainGrad = defs.append('linearGradient')
+    const defRemainGrad = defs.append('linearGradient')
     .attr('id', this.oType + '_defRemainGrad')
     .attr('x1', '0%')
     .attr('x2', '0%')
     .attr('y1', '0%')
     .attr('y2', '100%');
-  defRemainGrad.append('stop')
+    defRemainGrad.append('stop')
     .attr('class', 'start')
     .attr('offset', '0%')
     .attr('stop-color', this.helios.defRemainStart)
     .attr('stop-opacity', 1);
-  defRemainGrad.append('stop')
+    defRemainGrad.append('stop')
     .attr('class', 'stop')
     .attr('offset', '100%')
     .attr('stop-color', this.helios.defRemainEnd)
     .attr('stop-opacity', 1);
-  const selRemainGrad = defs.append('linearGradient')
+    const selRemainGrad = defs.append('linearGradient')
     .attr('id', this.oType + '_selRemainGrad')
     .attr('x1', '0%')
     .attr('x2', '0%')
     .attr('y1', '0%')
     .attr('y2', '100%');
-  selRemainGrad.append('stop')
+    selRemainGrad.append('stop')
     .attr('class', 'start')
     .attr('offset', '0%')
     .attr('stop-color', this.helios.selRemainStart)
     .attr('stop-opacity', 1);
-  selRemainGrad.append('stop')
+    selRemainGrad.append('stop')
     .attr('class', 'stop')
     .attr('offset', '100%')
     .attr('stop-color', this.helios.selRemainEnd)
     .attr('stop-opacity', 1);
-  const defCompareGrad = defs.append('linearGradient')
+    const defCompareGrad = defs.append('linearGradient')
     .attr('id', this.oType + '_defCompareGrad')
     .attr('x1', '0%')
     .attr('x2', '0%')
     .attr('y1', '0%')
     .attr('y2', '100%');
-  defCompareGrad.append('stop')
+    defCompareGrad.append('stop')
     .attr('class', 'start')
     .attr('offset', '0%')
     .attr('stop-color', this.helios.defCompareStart)
     .attr('stop-opacity', 1);
-  defCompareGrad.append('stop')
+    defCompareGrad.append('stop')
     .attr('class', 'stop')
     .attr('offset', '100%')
     .attr('stop-color', this.helios.defCompareEnd)
     .attr('stop-opacity', 1);
-  const selCompareGrad = defs.append('linearGradient')
+    const selCompareGrad = defs.append('linearGradient')
     .attr('id', this.oType + '_selCompareGrad')
     .attr('x1', '0%')
     .attr('x2', '0%')
     .attr('y1', '0%')
     .attr('y2', '100%');
-  selCompareGrad.append('stop')
+    selCompareGrad.append('stop')
     .attr('class', 'start')
     .attr('offset', '0%')
     .attr('stop-color', this.helios.selCompareStart)
     .attr('stop-opacity', 1);
-  selCompareGrad.append('stop')
+    selCompareGrad.append('stop')
     .attr('class', 'stop')
     .attr('offset', '100%')
     .attr('stop-color', this.helios.selCompareEnd)
@@ -281,18 +290,18 @@ export class ForecastBarsComponent implements OnInit {
     const xScale = d3.scaleBand()
     .rangeRound([0, width]).padding(0.1);
   // xScale2
-  d3.scaleBand()
+    d3.scaleBand()
     .rangeRound([0, width]).padding(0.1);
   // xScale3
-  d3.scaleBand()
+    d3.scaleBand()
     .rangeRound([0, width]).padding(0.1);
-  const yScale = d3.scaleLinear()
+    const yScale = d3.scaleLinear()
     .rangeRound([height, 0]);
-  const xAxis = d3.axisBottom(xScale);
-  let xAxis2, xAxis3;
+    const xAxis = d3.axisBottom(xScale);
+    let xAxis2, xAxis3;
 
-  const yAxis = d3.axisLeft(yScale);
-  const gArea = scene.append('g')
+    const yAxis = d3.axisLeft(yScale);
+    const gArea = scene.append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
     if (this.showStatus) {
       let totalFlightCounts = 0;
@@ -302,7 +311,7 @@ export class ForecastBarsComponent implements OnInit {
           totalFlightCounts += data.flightCounts;
         } else {
           const maxFlightCount = _.maxBy(jsonData, 'flightCounts');
-          console.log(maxFlightCount)
+          console.log(maxFlightCount);
           // @ts-ignore
           totalFlightCounts = maxFlightCount.flightCounts;
         }
@@ -336,14 +345,14 @@ export class ForecastBarsComponent implements OnInit {
 
 
     // Drawing the X-Axis with Days...
-			if (oType !== 'forecast') {
+			 if (oType !== 'forecast') {
 				// gDays
 				gArea.append('g')
 					.attr('class', 'axis x-axis')
 					.attr('transform', 'translate(0,' + height + ')')
 					.call(xAxis);
 			}
-			if (oType === 'demand') {
+			 if (oType === 'demand') {
 				if (this.scope === 'day') {
 					xAxis2 = d3.axisBottom(xScale).tickFormat((d, i) => {
 						if (jsonData[i].dow === jsonData[i][oCompare].dow) {
@@ -415,7 +424,7 @@ export class ForecastBarsComponent implements OnInit {
 
         // Drawing the Y-Axis with Values...
 			// gValues
-			gArea.append('g')
+			 gArea.append('g')
       .attr('class', 'axis y-axis')
       .call(yAxis)
       .append('text')
@@ -448,24 +457,24 @@ export class ForecastBarsComponent implements OnInit {
 
 
     // Drawing the Bars...
-			const gBars = gArea.selectAll('.bars')
+			 const gBars = gArea.selectAll('.bars')
       .data(jsonData)
       .enter()
       .append('g');
 
-    
-      // Drawing the Comparison Demand...
-			let rectWidth = xScale.bandwidth();
 
-			const noBarsSelected = _.every(jsonData, ['selected', false]);
-			if (oType === 'demand' && jsonData.length > 31) {
+      // Drawing the Comparison Demand...
+			 let rectWidth = xScale.bandwidth();
+
+			 const noBarsSelected = _.every(jsonData, ['selected', false]);
+			 if (oType === 'demand' && jsonData.length > 31) {
 				rectWidth = eachRectWidth - 5;
 			}
-			const brush = d3.brushX();
-			gBars.call(brush);
+			 const brush = d3.brushX();
+			 gBars.call(brush);
 
-			let click = false;
-			brush.on('end', () => {
+			 let click = false;
+			 brush.on('end', () => {
 				if (click) { // if true then double click
 					console.log('double click');
 					// this.onDoubleClickBrush(oType);
@@ -497,7 +506,7 @@ export class ForecastBarsComponent implements OnInit {
 				// this.onSelectBrush(oType, selectedArea);
 			});
 
-			gBars.append('rect')
+			 gBars.append('rect')
 				.style('fill', (d) => {
 					// @ts-ignore
 					return d.selected ? 'url(#' + oType + '_selCompareGrad)' : 'url(#' + oType + '_defCompareGrad)';
@@ -527,7 +536,7 @@ export class ForecastBarsComponent implements OnInit {
 				.on('mouseout', () => {
 					// this.graphService.hideToolTip(toolTip);
 				});
-      
+
 
 
 
@@ -538,6 +547,6 @@ export class ForecastBarsComponent implements OnInit {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 
-  
-        
+
+
 }

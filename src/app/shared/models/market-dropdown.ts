@@ -1,4 +1,4 @@
 export interface MarketDropdownModel {
-    id: string,
-    text: string
+    id: string;
+    text: string;
 }

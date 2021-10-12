@@ -3,7 +3,7 @@ import {Select, Store} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CabinsActions } from '../../actions/cabins-actions';
-import {MarketActions} from '../../actions/market-action';
+import {MarketActions, MarketSelectedAction} from '../../actions/market-action';
 import { CabinsStateModel } from '../../models/cabins';
 import { MarketDropdownModel } from '../../models/market-dropdown';
 import { MarketsState } from '../../state/markets-state';
@@ -16,8 +16,7 @@ import { MarketsState } from '../../state/markets-state';
 export class MarketDropdownComponent implements OnInit {
 
 
-  @Output() 
-  emitSelectedMarket = new EventEmitter();
+  @Output() emitSelectedMarket = new EventEmitter();
 
   disabled = true;
   @Select (MarketsState.getMarketDropdownList) marketList$: Observable<MarketDropdownModel>
@@ -47,12 +46,17 @@ export class MarketDropdownComponent implements OnInit {
   selectedMarket(event: MarketDropdownModel) {
     // When market is changed need to load new cabins for the market is the always.
     // Dispatch an action the store to load cabins for the new market
-    if(event) {
-      console.log(event)
+    // Also dispatch and action to store that a new market was selected
+    if (event) {
+      console.log(event);
+      const originDestination = event.id.split('|');
+      console.log(originDestination[0]);
+      console.log(originDestination[1]);
+
       // this.emitSelectedMarket.emit(event.id);
-      this.store.dispatch(new CabinsActions(event.id)).subscribe(() => {
+      this.store.dispatch([new CabinsActions(event.id), new MarketSelectedAction({origin: originDestination[0], destination: originDestination[1]})]).subscribe(() => {
         this.emitSelectedMarket.emit(event.id);
-      })
+      });
     }
   }
 

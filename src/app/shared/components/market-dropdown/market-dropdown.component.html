@@ -1,15 +1,15 @@
 <div class="market-dropdown form-group row">
 	<label class="label col-2">Market:</label>
     <div class="col-8 offset-1">
-		<ng-select class="filter-dropdown"
-				   [clearable]="true"
-				   [items]="marketList$ | async"
-				   [editableSearchTerm] ="true"
-				   bindLabel="text"
-				   [ngModel]="(marketList$ | async)[0]"
-				   (change)="selectedMarket($event)"
-				   [virtualScroll]="true"
-		>
+		<ng-select (change)="selectedMarket($event)"
+               [clearable]="true"
+               [editableSearchTerm]="true"
+               [items]="marketList$ | async"
+               [ngModel]="(marketList$ | async)[0]"
+               [virtualScroll]="true"
+               bindLabel="text"
+               class="filter-dropdown"
+    >
 		</ng-select>
 	</div>
 </div>

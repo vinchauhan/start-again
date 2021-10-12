@@ -9,9 +9,8 @@ import { DemandRequest } from '../models/demand-request';
 })
 export class ForecastDemandComponent implements OnInit {
 
-  @Input()
-  forecastDemandInput: DemandRequest
-  demandResponse$
+  @Input() forecastDemandInput: DemandRequest;
+  demandResponse$;
   forecastDemandResponse;
   // Day, Week & Month
 	differentView = [
@@ -23,11 +22,11 @@ export class ForecastDemandComponent implements OnInit {
 	isScope = {day: true, week: true, month: true};
   constructor(private demandService: DemandService) { }
   ngOnInit(): void {
-    console.log('ngOnInit | ForecastDemandComponent', this.forecastDemandInput)
-    this.demandService.getDemand(this.forecastDemandInput).subscribe((result) => {
-      console.log('demandService.getDemand', result)
-      this.forecastDemandResponse = result;
-    })
+    console.log('ngOnInit | ForecastDemandComponent', this.forecastDemandInput);
+    // this.demandService.getDemand(this.forecastDemandInput).subscribe((result) => {
+    //   console.log('demandService.getDemand', result);
+    //   this.forecastDemandResponse = result;
+    // });
   }
 
   onScopeChange(scope) {

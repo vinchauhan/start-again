@@ -5,7 +5,7 @@ import { patch } from '@ngxs/store/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { EndDateAction } from '../actions/enddate-action';
-import { MarketActions } from '../actions/market-action';
+import {MarketActions, MarketSelectedAction} from '../actions/market-action';
 import { StartDateAction } from '../actions/startdate-action';
 import { AllMarkets } from '../models/all-markets';
 import { DatePickerInput } from '../models/datepicker-input';
@@ -93,7 +93,7 @@ constructor(private store: Store,
       console.log('ActionListener | CabinSelectAction | payload {}', cabin);
       setState(patch({
         selectedCabin: cabin
-      }))
+      }));
     }
 
     @Action(StartDateAction)
@@ -124,13 +124,22 @@ constructor(private store: Store,
       return this.cabinService.getCabinsForMarket(market).pipe(
         tap((cabins) => {
           ctx.setState(
-            patch({ 
-              cabins: cabins, 
-              selectedCabin: cabins[0] 
+            patch({
+              cabins,
+              selectedCabin: cabins[0]
             })
           );
         })
       );
+    }
+
+    // Market Action Listeners
+    @Action(MarketSelectedAction)
+    marketSelected({getState, setState}: StateContext<MarketStateModel>, {selectedMarket}: MarketSelectedAction) {
+      console.log('Action MarketSelectedAction listened');
+      setState(patch({
+        selectedMarket
+      }));
     }
 
     @Action(MarketActions)

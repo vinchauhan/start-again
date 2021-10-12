@@ -3,11 +3,36 @@
         <app-control-panel (emitSelectedMarket)="onMarketSelected($event)"></app-control-panel>
     </div>
     <div class="col-md-10">
-        <div>
+<!--        <div>-->
+<!--            <span>-->
+<!--                <app-forecast-bars [forecastDemandData$]="forecastDemandResponse$" *ngIf="forecastDemandResponse$ | async"></app-forecast-bars>-->
+<!--&lt;!&ndash;                <app-forecast-demand [forecastDemandInput]="forecastDemandRequest" *ngIf="forecastDemandRequest"></app-forecast-demand>&ndash;&gt;-->
+<!--            </span>-->
+<!--        </div>-->
+      <div class="box forecast-graph">
+        <h3 class="heading" data-toggle="collapse" aria-expanded="true" aria-controls="forecast-graph-content">Forecast Graph</h3>
+        <div id="forecast-graph-content" class="box-content collapse show">
+          <div class="forecast-selection">
+            <div class="row">
+              <div class="col">
+                <div class="market-btn-types">
+                        <span *ngFor='let dv of differentView'>
+                            <input id='scope_{{dv.key}}' type='radio' name='scope_radio' [value]='dv.key'
+                                   [(ngModel)]='scope' (ngModelChange)='onScopeChange(scope)'
+                                   [checked]='dv.isChecked' hidden>
+                            <label for='scope_{{dv.key}}' class="btn btn-primary btn-sm">{{ dv.value }}</label>
+                        </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="bars">
             <span>
-                <app-forecast-demand [forecastDemandInput]="forecastDemandRequest" *ngIf="forecastDemandRequest"></app-forecast-demand>
+              <app-forecast-bars [forecastDemandData$]="forecastDemandResponse$" *ngIf="forecastDemandResponse$ | async"></app-forecast-bars>
             </span>
+          </div>
         </div>
+      </div>
     </div>
 </div>
 
