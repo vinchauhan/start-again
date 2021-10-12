@@ -1,6 +1,6 @@
 <div class="control-panel">
     <div class="market-dropdown">
-        <app-market-dropdown></app-market-dropdown>
+        <app-market-dropdown (emitSelectedMarket)="marketSelected($event)"></app-market-dropdown>
     </div>
     <div class="box">
         <h3 class="heading" data-toggle="collapse" data-target="#filters-content"
@@ -31,7 +31,7 @@
                   <label for='cabin{{ i+ 1}}' placement="right" class="text-font-size padding-left-5"
                          ngbTooltip="{{cabin.value}}">
                     <input type="radio" name="cabinsOptions" id="cabin{{ i+ 1}}" value="{{cabin.key}}"
-                           (change)='cabinsFun()' [ngModel]="(cabinData$ | async)?.key">
+                           (change)='cabinSelected(cabin)' [ngModel]="(cabinData$ | async)?.key">
                     {{cabin.key}}</label>
                 </div>
               </div>

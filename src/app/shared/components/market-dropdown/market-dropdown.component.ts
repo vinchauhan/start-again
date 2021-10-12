@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -14,6 +14,10 @@ import { MarketsState } from '../../state/markets-state';
   styleUrls: ['./market-dropdown.component.scss']
 })
 export class MarketDropdownComponent implements OnInit {
+
+
+  @Output() 
+  emitSelectedMarket = new EventEmitter();
 
   disabled = true;
   @Select (MarketsState.getMarketDropdownList) marketList$: Observable<MarketDropdownModel>
@@ -45,7 +49,10 @@ export class MarketDropdownComponent implements OnInit {
     // Dispatch an action the store to load cabins for the new market
     if(event) {
       console.log(event)
-      this.store.dispatch(new CabinsActions(event.id));
+      // this.emitSelectedMarket.emit(event.id);
+      this.store.dispatch(new CabinsActions(event.id)).subscribe(() => {
+        this.emitSelectedMarket.emit(event.id);
+      })
     }
   }
 

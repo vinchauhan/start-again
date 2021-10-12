@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-2">
-        <app-control-panel></app-control-panel>
+        <app-control-panel (emitSelectedMarket)="onMarketSelected($event)"></app-control-panel>
     </div>
     <div class="col-md-10">
         <div>
             <span>
-                <app-forecast-demand></app-forecast-demand>
+                <app-forecast-demand [forecastDemandInput]="forecastDemandRequest" *ngIf="forecastDemandRequest"></app-forecast-demand>
             </span>
         </div>
     </div>

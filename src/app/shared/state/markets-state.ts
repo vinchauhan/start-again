@@ -12,7 +12,7 @@ import { DatePickerInput } from '../models/datepicker-input';
 import { MarketDropdownModel } from '../models/market-dropdown';
 import { OriginDestination } from '../models/origin-destination';
 import { MarketService } from '../services/market.service';
-import {CabinsActions} from '../actions/cabins-actions';
+import {CabinsActions, CabinSelectAction} from '../actions/cabins-actions';
 import {CabinService} from '../services/cabin.service';
 import {CabinsStateModel} from '../models/cabins';
 
@@ -81,12 +81,20 @@ constructor(private store: Store,
       return state.selectedCabin;
     }
 
-    // Action Listeners
+    // [ACTIONS]: Listeners
 
     // @Action(StartEndDateAction)
     // loadDefaultDateRange({getState, setState}: StateContext<MarketStateModel>) {
     //   console.log('Received StartEndDateAction')
     // }
+
+    @Action(CabinSelectAction)
+    updateSelectedCabin({getState, setState}: StateContext<MarketStateModel>, {cabin}: CabinSelectAction) {
+      console.log('ActionListener | CabinSelectAction | payload {}', cabin);
+      setState(patch({
+        selectedCabin: cabin
+      }))
+    }
 
     @Action(StartDateAction)
     updateStartDate({getState, setState}: StateContext<MarketStateModel>, {startDate}: StartDateAction) {
@@ -116,13 +124,6 @@ constructor(private store: Store,
       return this.cabinService.getCabinsForMarket(market).pipe(
         tap((cabins) => {
           ctx.setState(
-            // { ...state, 
-            //   cabins: cabins, 
-            //   selectedCabin: cabins[0]  
-            // } 
-              
-                
-            
             patch({ 
               cabins: cabins, 
               selectedCabin: cabins[0] 

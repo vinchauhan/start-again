@@ -5,19 +5,23 @@
 
 
 /* Localhost */
-// const apiCM = 'http://localhost:8080/cm/';
-// const apiPLC = 'http://localhost:8080/plc/'
+const apiCM = 'http://localhost:8080/cm/';
+const apiPLC = 'http://localhost:8080/plc/';
+const apiDMD = 'http://localhost:8080/dmd/';
 
-const apiCM = 'http://rmappt23.qcorpaa.aa.com:9082/cm/';
-const apiPLC = 'http://rmappt23.qcorpaa.aa.com:9088/plc/';
+// const apiCM = 'http://rmappt23.qcorpaa.aa.com:9082/cm/';
+// const apiPLC = 'http://rmappt23.qcorpaa.aa.com:9088/plc/';
+// const apiDMD = 'http://rmappt23.qcorpaa.aa.com:9080/dmd/';
 
 
 export const environment = {
   production: false,
+  showStatus: true,
   allMarkets: apiCM + 'all-markets',
   userMarkets: apiCM + 'user-markets',
   poolCodes: apiPLC + 'holiday-poolcodes',
-  cabins: apiCM + 'cabins'
+  cabins: apiCM + 'cabins',
+  demand: apiDMD + 'demand'
 };
 
 /*

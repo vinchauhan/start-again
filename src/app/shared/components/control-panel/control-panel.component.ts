@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MarketService } from '../../services/market.service';
 import {Select, Selector, Store} from '@ngxs/store';
 import {MarketActions} from '../../actions/market-action';
 import {MarketsState} from '../../state/markets-state';
-import {CabinsActions} from '../../actions/cabins-actions';
+import {CabinsActions, CabinSelectAction} from '../../actions/cabins-actions';
 import {Observable} from 'rxjs';
 import {OriginDestination} from '../../models/origin-destination';
 import {MarketDropdownModel} from '../../models/market-dropdown';
@@ -15,6 +15,9 @@ import {CabinsStateModel} from '../../models/cabins';
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
+
+  @Output()
+  emitSelectedMarket = new EventEmitter();
   marketList;
   @Select (MarketsState.getSelectedMarket) selectedMarket$: Observable<OriginDestination>;
   @Select (MarketsState.getCabins) cabins$: Observable<CabinsStateModel[]>;
@@ -47,12 +50,19 @@ export class ControlPanelComponent implements OnInit {
 
   }
 
+  marketSelected(event: any) {
+    console.log('event emitted is collected', event)
+    this.emitSelectedMarket.emit(event);
+  }
+
   openTimeBandModal() {
 
   }
 
-  cabinsFun() {
-
+  cabinSelected(cabin: CabinsStateModel) {
+    console.log('cabinSelected |', cabin)
+    // Dispatch and Action to update selected cabin
+    this.store.dispatch(new CabinSelectAction(cabin))
   }
 
   flowsFun(flow: { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string }) {

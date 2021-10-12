@@ -9,6 +9,7 @@ import { ForecastClassDimensionComponent } from './forecast-class-dimension/fore
 import { ForecastPeriodDimensionComponent } from './forecast-period-dimension/forecast-period-dimension.component';
 import { ForecastDowDimensionComponent } from './forecast-dow-dimension/forecast-dow-dimension.component';
 import { ForecastBandDimensionComponent } from './forecast-band-dimension/forecast-band-dimension.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,6 +18,7 @@ import { ForecastBandDimensionComponent } from './forecast-band-dimension/foreca
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     ForecastRoutingModule
   ]
 })
