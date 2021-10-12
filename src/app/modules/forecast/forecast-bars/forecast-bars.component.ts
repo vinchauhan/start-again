@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { tickFormat } from 'd3';
 import * as _ from 'lodash';
 import { CommonDataService } from 'src/app/shared/services/common-data.service';
 import { environment } from 'src/environments/environment';
@@ -42,8 +43,75 @@ export class ForecastBarsComponent implements OnInit {
   constructor(private commonDataService: CommonDataService) { }
 
   ngOnInit(): void {
-    this.renderGraph(this.forecastDemandData);
+    // this.renderGraph(this.forecastDemandData);
+    this.renderBars(this.forecastDemandData);
   }
+
+  renderBars(jsonData: any[]) {
+    let container = d3.select('#cnt_forecast_bars');
+    let height = 200;
+    let width = 1200;
+    const margin = {
+      top: 10,
+      right:10,
+      bottom: 20,
+      left:40
+    }
+    let eachRectWidth;
+    // let width, height : number;
+    if(this.oType === 'demand' && jsonData.length > 31) {
+      eachRectWidth = width / 30 - 1;
+      width = eachRectWidth * jsonData.length + 10;
+      height = height - 30;
+    }
+
+    // create an svg under the container to draw the bars
+    const svg = container.append('svg')
+                         .attr('id', 'forecast_bars_svg')
+                         .attr('height', height - margin.top - margin.bottom)
+                         .attr('width', width - margin.left - margin.right)
+    
+    // Define the scale for x and y values after attaching the svg
+    const x_domain = d3.range(jsonData.length).map((d) => d+'');
+    const x = d3.scaleBand()
+                .domain(x_domain)
+                .range([margin.left, width - margin.right])
+                .padding(0.1)
+    const y = d3.scaleLinear()
+                .domain([0, 100])
+                .range([height - margin.bottom, margin.top])
+
+    // Create the bars
+    svg.append('g')
+       .attr('fill', 'orange  ')
+       .selectAll('rect')
+       .data(jsonData)
+       .join('rect')
+       .attr('x', (d, i) => x(i+''))
+       .attr('y', (d) => y(d.demand))
+       .attr('height', (d) => y(0) - y(d.demand))
+       .attr('width', width / jsonData.length - margin.left - margin.right)
+    
+    function xAxis(g) {
+        g.attr('transform', `translate(0, ${height - margin.bottom})`)
+        g.call(d3.axisBottom(x).tickFormat(i => jsonData[i].data))
+        g.attr('font-size', '20px')
+    }
+    
+    function yAxis(g) {
+      g.attr('transform', `translate(${margin.left}, 0)`)
+      g.call(d3.axisLeft(y).ticks(null, jsonData.format))
+      g.attr('font-size', '10px')
+    }
+    svg.append('g').call(yAxis)
+    svg.append('g').call(xAxis)
+    svg.node()
+
+    
+
+  }
+
+  
 
   renderGraph(jsonData) {
     console.log('renderGraph', jsonData)
