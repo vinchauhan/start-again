@@ -7,6 +7,7 @@ import { CommonDataService } from 'src/app/shared/services/common-data.service';
 import { environment } from 'src/environments/environment';
 import {BehaviorSubject} from 'rxjs';
 import {ForecastResponse} from '../models/forecast-response';
+import {GraphService} from '../../../shared/services/graph.service';
 
 @Component({
   selector: 'app-forecast-bars',
@@ -51,7 +52,7 @@ export class ForecastBarsComponent implements OnInit {
 	  selPure: '#CCCCCC',
   };
   private atleastOneDowOrPoolSelected = true;
-  constructor(private commonDataService: CommonDataService) { }
+  constructor(private commonDataService: CommonDataService, private graphService: GraphService) { }
 
   ngOnInit(): void {
     // this.renderGraph(this.forecastDemandData);
@@ -644,6 +645,7 @@ export class ForecastBarsComponent implements OnInit {
           if (noBarsSelected) {
             if (this.atleastOneDowOrPoolSelected && oType === 'forecast') {
               barColor = 'url(#' + oType + '_defCompareGrad)';
+              // barColor = defCompareGrad;
             } else {
               barColor = 'url(#' + oType + '_defRemainGrad)';
             }
@@ -747,11 +749,7 @@ export class ForecastBarsComponent implements OnInit {
           // this.graphService.hideToolTip(toolTip);
         });
     } else {
-      // if (selectedMarket !== '') {
-      //   this.graphService.renderAlert(oType, 'There are no items returned from API Request!');
-      // } else {
-      //   this.graphService.renderAlert(oType, 'Please select the Market to show the Graph!');
-      // }
+      this.graphService.renderAlert(oType, 'There are no items returned from API Request!');
     }
   }
 
