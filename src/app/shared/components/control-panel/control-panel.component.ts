@@ -38,12 +38,13 @@ export class ControlPanelComponent implements OnInit {
     console.log('control-panel is initialized');
     // When app starts there is no selected market in the state so its better to subscribe to the state slice if data exists
     // const result: OriginDestination = this.store.selectSnapshot<OriginDestination>(MarketsState.getSelectedMarket);
-    this.selectedMarket$.subscribe((selectedMarket) => {
-      // Only dispatch action when selected market exists
-      if ( selectedMarket.origin !== '' && selectedMarket.destination !== '') {
-        this.store.dispatch(new CabinsActions(selectedMarket.origin + '|' + selectedMarket.destination));
-      }
-    });
+    // this.selectedMarket$.subscribe((selectedMarket) => {
+    //   // Only dispatch action when selected market exists
+    //   console.log('selectedMarket store slice subscription Triggered :', selectedMarket);
+    //   if ( selectedMarket.origin !== '' && selectedMarket.destination !== '') {
+    //     this.store.dispatch(new CabinsActions(selectedMarket.origin + '|' + selectedMarket.destination));
+    //   }
+    // });
   }
 
   resetDates() {
@@ -51,7 +52,7 @@ export class ControlPanelComponent implements OnInit {
   }
 
   marketSelected(event: any) {
-    console.log('event emitted is collected', event)
+    console.log('event emitted is collected', event);
     this.emitSelectedMarket.emit(event);
   }
 
@@ -60,9 +61,9 @@ export class ControlPanelComponent implements OnInit {
   }
 
   cabinSelected(cabin: CabinsStateModel) {
-    console.log('cabinSelected |', cabin)
+    console.log('cabinSelected >>>>>', cabin);
     // Dispatch and Action to update selected cabin
-    this.store.dispatch(new CabinSelectAction(cabin))
+    this.store.dispatch(new CabinSelectAction(cabin));
   }
 
   flowsFun(flow: { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string }) {

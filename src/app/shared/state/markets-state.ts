@@ -136,10 +136,20 @@ constructor(private store: Store,
     // Market Action Listeners
     @Action(MarketSelectedAction)
     marketSelected({getState, setState}: StateContext<MarketStateModel>, {selectedMarket}: MarketSelectedAction) {
+      // When market is selected on the control-panel component,  the first thing to do is fetch the cabins for that market
       console.log('Action MarketSelectedAction listened');
-      setState(patch({
-        selectedMarket
-      }));
+      console.log('Fetching cabins in the market', selectedMarket);
+      return this.cabinService.getCabinsForMarket(selectedMarket.origin + selectedMarket.destination).pipe(
+        tap((cabins) => {
+          setState(patch(
+            {
+              cabins,
+              selectedCabin: cabins[0],
+              selectedMarket
+            }
+          ));
+        })
+      );
     }
 
     @Action(MarketActions)
@@ -184,7 +194,7 @@ constructor(private store: Store,
           });
 
         const state = getState();
-        setState({
+        return setState({
                   ...state,
                   allmarkets: allMarkets,
                   selectedMarket: market,

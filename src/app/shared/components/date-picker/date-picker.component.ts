@@ -15,11 +15,11 @@ import { MarketsState, MarketStateModel } from '../../state/markets-state';
 })
 export class DatePickerComponent implements OnInit, AfterViewInit {
 
-  faCalendar = faCalendar
-  @Select(MarketsState) marketState$ : Observable<MarketStateModel>
+  faCalendar = faCalendar;
+  @Select(MarketsState) marketState$: Observable<MarketStateModel>;
 
-  startDateInput: DatePickerInput
-  endDateInput: DatePickerInput
+  startDateInput: DatePickerInput;
+  endDateInput: DatePickerInput;
 
   constructor(private store: Store) {}
 
@@ -29,7 +29,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       this.marketState$.subscribe((state) => {
         this.startDateInput = state.startDateInput;
         this.endDateInput = state.endDateInput;
-      })
+      });
 
       // const today: Date = new Date();
       // if(!this.startDateInput || !this.endDateInput) {
@@ -45,15 +45,15 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   onStartDateSelect(event) {
-    console.log(event)
+    console.log(event);
     const newStartDate: DatePickerInput = event;
-    this.store.dispatch(new StartDateAction(newStartDate))
+    this.store.dispatch(new StartDateAction(newStartDate));
   }
 
   onEndDateSelect(event) {
-    console.log(event)
+    console.log(event);
     const newEndDate: DatePickerInput = event;
-    this.store.dispatch(new EndDateAction(newEndDate))
+    this.store.dispatch(new EndDateAction(newEndDate));
   }
 
 

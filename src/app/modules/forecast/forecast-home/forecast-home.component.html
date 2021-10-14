@@ -28,7 +28,10 @@
           </div>
           <div id="bars">
             <span>
-              <app-forecast-bars [forecastDemandData$]="forecastDemandResponse$" *ngIf="forecastDemandResponse$ | async"></app-forecast-bars>
+              <app-forecast-bars [oType]="'demand'" [forecastDemandData$]="forecastDemandResponse$" *ngIf="forecastDemandResponse$ | async; else loading"></app-forecast-bars>
+              <ng-template #loading>
+                Loading stuff...
+              </ng-template>
             </span>
           </div>
         </div>

@@ -55,7 +55,7 @@ export class ForecastBarsComponent implements OnInit {
       top: 10,
       right: 10,
       bottom: 20,
-      left: 40
+      left: 25
     };
     // Remove existing svg when re-rendering
     d3.select('svg').remove();
@@ -92,24 +92,29 @@ export class ForecastBarsComponent implements OnInit {
                 .domain(xDomain)
                 .range([margin.left, width - margin.right])
                 .padding(0.1);
+    const max = d3.max(jsonData, (d) => +d.demand );
     const y = d3.scaleLinear()
-                .domain([0, 100])
+      // TODO: Get max domain from the max value of jsonData[].demand
+                .domain([0, max + 10])
                 .range([height - margin.bottom, margin.top]);
+
+    const color = d3.scaleOrdinal()
+      .range(['#D73027', '#FFFFBF' , '#1A9850']);
 
     // Create the bars
     svg.append('g')
-       .attr('fill', 'orange  ')
+       .attr('fill', '#005AA0')
        .selectAll('rect')
        .data(jsonData)
        .join('rect')
        .attr('x', (d, i) => x(i))
        .attr('y', (d) => y(d.demand))
        .attr('height', (d) => y(0) - y(d.demand))
-       .attr('width', width / jsonData.length - margin.left - margin.right);
+       .attr('width', width / jsonData.length - 10);
 
     function xAxis(g) {
         g.attr('transform', `translate(0, ${height - margin.bottom})`);
-        g.call(d3.axisBottom(x).tickFormat(i => jsonData[i].data));
+        g.call(d3.axisBottom(x).tickFormat(i => jsonData[i].data.substr(5).replace('-', '/')));
         g.attr('font-size', '10px');
     }
 

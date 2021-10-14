@@ -1,4 +1,4 @@
-import { CabinsStateModel } from "../models/cabins";
+import { CabinsStateModel } from '../models/cabins';
 
 export class CabinsActions {
   static readonly type = '[Load Cabins] Load cabin for market';
@@ -10,7 +10,7 @@ export class CabinsActions {
 
 export class CabinSelectAction {
   static readonly type = '[Select Cabin] New cabin selected';
-  cabin: CabinsStateModel
+  cabin: CabinsStateModel;
   constructor(cabin: CabinsStateModel) {
     this.cabin = cabin;
   }
