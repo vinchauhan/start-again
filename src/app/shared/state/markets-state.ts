@@ -139,7 +139,7 @@ constructor(private store: Store,
       // When market is selected on the control-panel component,  the first thing to do is fetch the cabins for that market
       console.log('Action MarketSelectedAction listened');
       console.log('Fetching cabins in the market', selectedMarket);
-      return this.cabinService.getCabinsForMarket(selectedMarket.origin + selectedMarket.destination).pipe(
+      return this.cabinService.getCabinsForMarket(selectedMarket.origin + '|' + selectedMarket.destination).pipe(
         tap((cabins) => {
           setState(patch(
             {
