@@ -18,11 +18,19 @@ export class MarketDropdownComponent implements OnInit {
   @Output() emitSelectedMarket = new EventEmitter();
 
   disabled = true;
-  @Select (MarketsState.getMarketDropdownList) marketList$: Observable<MarketDropdownModel>;
+  @Select (MarketsState.getMarketDropdownList) marketList$: Observable<MarketDropdownModel[]>;
+  @Select (MarketsState.getSelectedMarket) activeMarket$: Observable<OriginDestination>;
+  activeMarket: MarketDropdownModel;
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
+    this.activeMarket$.subscribe((data) => {
+      this.activeMarket = {
+        id: data.origin + '|' + data.destination,
+        text: data.origin + data.destination
+      };
+    });
     // this.marketList$.pipe(take(1)).subscribe((market) => {
     //   console.log('selecting market', market[0])
     //   this.selectedMarketObj = market[0]

@@ -5,7 +5,7 @@
                [clearable]="true"
                [editableSearchTerm]="true"
                [items]="marketList$ | async"
-               [ngModel]="(marketList$ | async)[0]"
+               [(ngModel)]="activeMarket"
                [virtualScroll]="true"
                bindLabel="text"
                class="filter-dropdown"

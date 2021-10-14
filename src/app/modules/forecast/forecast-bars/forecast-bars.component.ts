@@ -597,11 +597,11 @@ export class ForecastBarsComponent implements OnInit {
         .style('fill', (d) => {
           let displayColor;
           if (noBarsSelected) {
-            // if (this.atleastOneDowOrPoolSelected && oType === 'forecast') {
-            //   displayColor = 'url(#' + oType + '_selCompareGrad)';
-            // } else {
-            //   displayColor = 'url(#' + oType + '_defTotalGrad)';
-            // }
+            if (this.atleastOneDowOrPoolSelected && oType === 'forecast') {
+              displayColor = 'url(#' + oType + '_selCompareGrad)';
+            } else {
+              displayColor = 'url(#' + oType + '_defTotalGrad)';
+            }
           } else {
             displayColor = d.selected ? 'url(#' + oType + '_defTotalGrad)' :
               'url(#' + oType + '_selCompareGrad)';
