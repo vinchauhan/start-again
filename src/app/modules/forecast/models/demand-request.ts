@@ -1,6 +1,7 @@
 import { CustomCompare } from "./custom-compare";
 import { FlowsPos } from "./flows-pos";
 import { Timebands } from "./timebands";
+import {PosStateModel} from '../../../shared/models/pos';
 
 export interface DemandRequest {
     cabin: string;
@@ -8,9 +9,9 @@ export interface DemandRequest {
     flows: FlowsPos[];
     fromDate: string;
     market: string;
-    pos: FlowsPos[];
+    pos: PosStateModel[];
     scope: string;
-    timeband?: Timebands[]
+    timeband?: Timebands[];
     dimensionType?: string;
     toDate: string;
     yearsBack: number;

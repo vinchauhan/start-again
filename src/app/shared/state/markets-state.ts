@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {Action, Selector, State, StateContext, Store} from '@ngxs/store';
-import { patch } from '@ngxs/store/operators';
+import {append, insertItem, patch, removeItem} from '@ngxs/store/operators';
 import { forkJoin, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { EndDateAction } from '../actions/enddate-action';
@@ -16,6 +16,7 @@ import {CabinsActions, CabinSelectAction} from '../actions/cabins-actions';
 import {CabinService} from '../services/cabin.service';
 import {CabinsStateModel} from '../models/cabins';
 import {PosStateModel} from '../models/pos';
+import {AddPosAction, RemovePosAction} from '../actions/pos-actions';
 
 export class MarketStateModel {
   allmarkets: AllMarkets;
@@ -24,6 +25,7 @@ export class MarketStateModel {
   cabins?: CabinsStateModel[];
   flows?: CabinsStateModel[];
   pos?: PosStateModel[];
+  backendPos: PosStateModel[];
   selectedCabin?: CabinsStateModel;
   startDateInput?: DatePickerInput;
   endDateInput?: DatePickerInput;
@@ -36,7 +38,8 @@ export class MarketStateModel {
     selectedMarket: {origin: '', destination: ''},
     cabins: [],
     flows: [],
-    pos: [{key: '0', value: 'Domestic', isSelected: true}, {key: '1', value: 'International', isSelected: true }],
+    pos: [{key: '0', value: 'Domestic'}, {key: '1', value: 'International'}],
+    backendPos: [{key: '0', value: 'Domestic'}, {key: '1', value: 'International'}],
     marketListDropdown: [],
     startDateInput: getDefaultStartDate(),
     endDateInput: getDefaultEndDateInput()
@@ -97,10 +100,21 @@ constructor(private store: Store,
     }
     // [ACTIONS]: Listeners
 
-    // @Action(StartEndDateAction)
-    // loadDefaultDateRange({getState, setState}: StateContext<MarketStateModel>) {
-    //   console.log('Received StartEndDateAction')
-    // }
+    @Action(AddPosAction)
+    addPos({getState, setState}: StateContext<MarketStateModel>, {pos}: AddPosAction) {
+      setState(patch( {
+        backendPos: insertItem<PosStateModel>(pos)
+      }));
+    }
+
+    @Action(RemovePosAction)
+    removePos({getState, setState}: StateContext<MarketStateModel>, {pos}: RemovePosAction) {
+      setState(patch( {
+        backendPos: removeItem<PosStateModel>((exiting) => {
+          return exiting.value === pos.value;
+        })
+      }));
+    }
 
     @Action(CabinSelectAction)
     updateSelectedCabin({getState, setState}: StateContext<MarketStateModel>, {cabin}: CabinSelectAction) {

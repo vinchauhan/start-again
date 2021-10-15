@@ -9,6 +9,7 @@ import {OriginDestination} from '../../models/origin-destination';
 import {MarketDropdownModel} from '../../models/market-dropdown';
 import {CabinsStateModel} from '../../models/cabins';
 import {PosStateModel} from '../../models/pos';
+import {AddPosAction, RemovePosAction} from '../../actions/pos-actions';
 
 @Component({
   selector: 'app-control-panel',
@@ -24,6 +25,7 @@ export class ControlPanelComponent implements OnInit {
   @Select (MarketsState.getCabins) cabins$: Observable<CabinsStateModel[]>;
   @Select (MarketsState.getSelectedCabin) cabinData$: Observable<CabinsStateModel>;
   cabinData: any = 'C';
+  posFilter = true;
   flows = [
             {key: 'B', value: 'Both', isSelected: true},
             {key: 'L', value: 'Local', isSelected: true},
@@ -72,7 +74,18 @@ export class ControlPanelComponent implements OnInit {
 
   }
 
-  posFun(pos: PosStateModel) {
+  posFun(pos: PosStateModel, evt) {
+    console.log(evt.target.checked);
     console.log(pos);
+    // based of if the checkbox event is check or unchecked we have to dispatch add or remove pos actions
+    if (!evt.target.checked) {
+      // Dispatch remove POS action
+      console.log('Dispatch remove POS action for pos :', pos);
+      this.store.dispatch(new RemovePosAction(pos));
+    } else {
+      // Dispatch Add POS action
+      console.log('Dispatch add POS action for pos :', pos);
+      this.store.dispatch(new AddPosAction(pos));
+    }
   }
 }

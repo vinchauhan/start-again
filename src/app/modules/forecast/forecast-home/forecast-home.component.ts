@@ -48,7 +48,7 @@ export class ForecastHomeComponent implements OnInit {
             cabin: appState.selectedCabin.key,
             scope: 'day',
             flows: [],
-            pos: [{key: 0, value: 'Domestic'}, {key: 1, value: 'International'}],
+            pos: appState.backendPos,
             toDate: appState.endDateInput.year + '-' + appState.endDateInput.month + '-' + appState.endDateInput.day,
             yearsBack: 2
           };
