@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {OriginDestination} from '../../models/origin-destination';
 import {MarketDropdownModel} from '../../models/market-dropdown';
 import {CabinsStateModel} from '../../models/cabins';
+import {PosStateModel} from '../../models/pos';
 
 @Component({
   selector: 'app-control-panel',
@@ -22,16 +23,17 @@ export class ControlPanelComponent implements OnInit {
   @Select (MarketsState.getSelectedMarket) selectedMarket$: Observable<OriginDestination>;
   @Select (MarketsState.getCabins) cabins$: Observable<CabinsStateModel[]>;
   @Select (MarketsState.getSelectedCabin) cabinData$: Observable<CabinsStateModel>;
-  cabinData: any = "C"
+  cabinData: any = 'C';
   flows = [
             {key: 'B', value: 'Both', isSelected: true},
             {key: 'L', value: 'Local', isSelected: true},
             {key: 'F', value: 'Flow', isSelected: true}
           ];
-  posFilter = [
-                {key: 1, value: 'Domestic', isSelected: true},
-                {key: 2, value: 'International', isSelected: true}
-              ];
+  // posFilter = [
+  //               {key: 1, value: 'Domestic', isSelected: true},
+  //               {key: 2, value: 'International', isSelected: true}
+  //             ];
+  @Select (MarketsState.getPosFilter) posFilter$: Observable<PosStateModel[]>;
   constructor(private marketService: MarketService, private store: Store ) { }
 
   ngOnInit(): void {
@@ -66,11 +68,11 @@ export class ControlPanelComponent implements OnInit {
     this.store.dispatch(new CabinSelectAction(cabin));
   }
 
-  flowsFun(flow: { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string } | { isSelected: boolean; value: string; key: string }) {
+  flowsFun(flow: CabinsStateModel) {
 
   }
 
-  posFun(pos: {isSelected: boolean; value: string; key: number} | {isSelected: boolean; value: string; key: number}) {
-
+  posFun(pos: PosStateModel) {
+    console.log(pos);
   }
 }

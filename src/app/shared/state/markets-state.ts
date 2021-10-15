@@ -15,12 +15,15 @@ import { MarketService } from '../services/market.service';
 import {CabinsActions, CabinSelectAction} from '../actions/cabins-actions';
 import {CabinService} from '../services/cabin.service';
 import {CabinsStateModel} from '../models/cabins';
+import {PosStateModel} from '../models/pos';
 
 export class MarketStateModel {
   allmarkets: AllMarkets;
   selectedMarket?: OriginDestination;
   marketListDropdown?: MarketDropdownModel[];
   cabins?: CabinsStateModel[];
+  flows?: CabinsStateModel[];
+  pos?: PosStateModel[];
   selectedCabin?: CabinsStateModel;
   startDateInput?: DatePickerInput;
   endDateInput?: DatePickerInput;
@@ -32,6 +35,8 @@ export class MarketStateModel {
     allmarkets: { alpha: [], directional: [], spokes: []},
     selectedMarket: {origin: '', destination: ''},
     cabins: [],
+    flows: [],
+    pos: [{key: '0', value: 'Domestic', isSelected: true}, {key: '1', value: 'International', isSelected: true }],
     marketListDropdown: [],
     startDateInput: getDefaultStartDate(),
     endDateInput: getDefaultEndDateInput()
@@ -81,6 +86,15 @@ constructor(private store: Store,
       return state.selectedCabin;
     }
 
+    @Selector()
+    static getPosFilter(state: MarketStateModel): PosStateModel[] {
+      return state.pos;
+    }
+
+    @Selector()
+    static getFlows(state: MarketStateModel): CabinsStateModel[] {
+      return state.flows;
+    }
     // [ACTIONS]: Listeners
 
     // @Action(StartEndDateAction)

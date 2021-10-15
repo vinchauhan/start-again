@@ -50,7 +50,7 @@
               <div class="col"></div>
               <div class="padding-top-10">
                 <h3>PoS</h3>
-                <div class="form-check" *ngFor='let pos of posFilter'>
+                <div class="form-check" *ngFor='let pos of posFilter$ | async'>
                   <input class="form-check-input" type="checkbox" value="domestic" id="pos_{{pos.key}}"
                          (change)='posFun(pos)' [(ngModel)]='pos.isSelected'>
                   <label class="form-check-label" for="pos_{{pos.key}}">{{ pos.value }}</label>

@@ -51,7 +51,7 @@ export class ForecastBarsComponent implements OnInit {
 	  defPure: '#C30019',
 	  selPure: '#CCCCCC',
   };
-  private atleastOneDowOrPoolSelected = true;
+  private atleastOneDowOrPoolSelected = false;
   constructor(private commonDataService: CommonDataService, private graphService: GraphService) { }
 
   ngOnInit(): void {
@@ -645,7 +645,7 @@ export class ForecastBarsComponent implements OnInit {
           if (noBarsSelected) {
             if (this.atleastOneDowOrPoolSelected && oType === 'forecast') {
               barColor = 'url(#' + oType + '_defCompareGrad)';
-              // barColor = defCompareGrad;
+              // barColor = 'red';
             } else {
               barColor = 'url(#' + oType + '_defRemainGrad)';
             }
